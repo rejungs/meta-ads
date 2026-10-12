@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta Ads & AI Content Creator Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 50: '#f0fdf4', 500: '#22c55e', 600: '#16a34a', 700: '#15803d' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased">
+    <!-- Header -->
+    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-green-500 to-emerald-400 flex items-center justify-center text-slate-950 font-bold text-xl shadow-lg shadow-green-500/20">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg tracking-wide text-white">Meta Ads & AI Creator Hub</h1>
+                    <p class="text-xs text-slate-400" id="sub-title">Swipe Files, AI Generator & Video Scripts</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <!-- Language Selector -->
+                <div class="flex items-center bg-slate-800 rounded-lg p-1 border border-slate-700">
+                    <button onclick="setLanguage('en')" id="lang-en" class="px-3 py-1.5 rounded-md text-xs font-medium transition bg-green-600 text-white shadow">English</button>
+                    <button onclick="setLanguage('tl')" id="lang-tl" class="px-3 py-1.5 rounded-md text-xs font-medium transition text-slate-400 hover:text-white">Tagalog</button>
+                    <button onclick="setLanguage('ceb')" id="lang-ceb" class="px-3 py-1.5 rounded-md text-xs font-medium transition text-slate-400 hover:text-white">Bisaya</button>
+                </div>
+                
+                <!-- API Key Modal Trigger -->
+                <button onclick="openApiKeyModal()" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-2 transition">
+                    <i class="fa-solid fa-key text-yellow-400"></i>
+                    <span id="btn-api-key">Gemini Key</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Left / Center: Generator & Templates (2 Cols) -->
+        <div class="lg:col-span-2 space-y-6">
+            
+            <!-- AI Generator Box -->
+            <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-green-500/10 rounded-full blur-2xl pointer-events-none"></div>
+                
+                <h2 class="text-lg font-bold text-white flex items-center gap-2 mb-4">
+                    <i class="fa-solid fa-robot text-green-400"></i>
+                    <span id="gen-heading">AI Script & Prompt Generator</span>
+                </h2>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5" id="lbl-product">Product / Service / Niche Description</label>
+                        <input type="text" id="ai-product" placeholder="e.g., Smartwatch para sa mga runners, Skincare para sa acne..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-green-500 transition">
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5" id="lbl-style">Ad Style / Format</label>
+                            <select id="ai-style" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-green-500 transition">
+                                <option value="ugc">UGC (User Generated Content) Style</option>
+                                <option value="founder">Founder-Led / Talking Head</option>
+                                <option value="broll">B-Roll + Voiceover (Lowkey)</option>
+                                <option value="transform">Before & After / Transformation</option>
+                                <option value="pas">PAS (Problem-Agitate-Solve)</option>
+                                <option value="aida">AIDA Framework</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5" id="lbl-goal">Video Duration / Type</label>
+                            <select id="ai-duration" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-green-500 transition">
+                                <option value="30s">30-Second Reel / Short Ad</option>
+                                <option value="15s">15-Second Fast Hook</option>
+                                <option value="60s">60-Second Deep Dive / Story</option>
+                                <option value="2min">2-Minute Detailed Presentation</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button onclick="generateWithAI()" class="w-full bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-500 hover:to-emerald-400 text-slate-950 font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-green-600/20 transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span id="btn-generate">Generate Script & Prompts</span>
+                    </button>
+                </div>
+                
+                <!-- AI Output Display -->
+                <div id="ai-output-container" class="mt-6 hidden border border-slate-800 bg-slate-950/70 rounded-xl p-4 relative">
+                    <div class="flex justify-between items-center mb-3 border-b border-slate-800 pb-2">
+                        <span class="text-xs font-bold text-green-400 uppercase tracking-wider" id="lbl-result">Generated Output</span>
+                        <button onclick="copyOutput()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-copy"></i> <span id="btn-copy">Copy Result</span>
+                        </button>
+                    </div>
+                    <div id="ai-result-content" class="text-sm text-slate-200 whitespace-pre-wrap font-mono leading-relaxed"></div>
+                </div>
+            </section>
+
+            <!-- Library / Swipe Files Section -->
+            <section class="space-y-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                    <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group text-green-400"></i>
+                        <span id="lib-heading">Meta Ads Swipe File Templates</span>
+                    </h2>
+                    
+                    <!-- Category Filter Tabs -->
+                    <div class="flex flex-wrap gap-1.5 bg-slate-900 p-1 rounded-xl border border-slate-800">
+                        <button onclick="filterCategory('all')" id="cat-all" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-green-600 text-white transition">All</button>
+                        <button onclick="filterCategory('ecom')" id="cat-ecom" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">E-commerce</button>
+                        <button onclick="filterCategory('comedy')" id="cat-comedy" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Comedy / Reels</button>
+                        <button onclick="filterCategory('edutainment')" id="cat-edutainment" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Edutainment</button>
+                    </div>
+                </div>
+
+                <!-- Template Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="templates-grid">
+                    <!-- Cards injected via JS -->
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Right Sidebar: Saved Scripts & Quick Tools (1 Col) -->
+        <div class="space-y-6">
+            
+            <!-- Quick Helper / Client Pitch Mode -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
+                <h3 class="font-bold text-sm text-white flex items-center gap-2 mb-3">
+                    <i class="fa-solid fa-briefcase text-green-400"></i>
+                    <span id="sidebar-client-title">Client Pitch Quick Guide</span>
+                </h3>
+                <p class="text-xs text-slate-400 leading-relaxed mb-4" id="sidebar-client-desc">
+                    Kung moingon ang client og *"Himoi ko ug ad style ani"* o *"2-minute short video"*, gamita ang mga template sa kilid o i-generate dayon diri para sa ilang brief.
+                </p>
+                <div class="space-y-2">
+                    <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 text-xs">
+                        <span class="font-semibold text-green-400 block mb-1">1. 3-Second Hook</span>
+                        <span class="text-slate-300">Pilia ang Contrarian o Question hook para paspas makuha ang atensyon.</span>
+                    </div>
+                    <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 text-xs">
+                        <span class="font-semibold text-green-400 block mb-1">2. Visual & Prompt</span>
+                        <span class="text-slate-300">I-input ang visual prompt sa Seedance o Video Express 3.0.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Saved Scripts Box -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="font-bold text-sm text-white flex items-center gap-2">
+                        <i class="fa-solid fa-bookmark text-green-400"></i>
+                        <span id="saved-heading">Saved Scripts</span>
+                    </h3>
+                    <button onclick="clearSaved()" class="text-xs text-slate-400 hover:text-red-400 transition" id="btn-clear">Clear All</button>
+                </div>
+                <div id="saved-list" class="space-y-3 max-h-[350px] overflow-y-auto pr-1">
+                    <p class="text-xs text-slate-500 italic text-center py-4" id="no-saved">No saved scripts yet.</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- API Key Modal -->
+    <div id="api-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-key text-yellow-400"></i> Set Gemini API Key
+            </h3>
+            <p class="text-xs text-slate-400">
+                Pagsulod sa imong Google Gemini API key aron moandar ang AI Generator. Naka-save ra kini sa imong browser (localStorage).
+            </p>
+            <input type="password" id="api-key-input" placeholder="AIzaSy..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-green-500">
+            <div class="flex justify-end gap-2 pt-2">
+                <button onclick="closeApiKeyModal()" class="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white bg-slate-800 transition">Cancel</button>
+                <button onclick="saveApiKey()" class="px-4 py-2 rounded-xl text-xs font-medium bg-green-600 text-white hover:bg-green-500 transition">Save Key</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Language state
+        let currentLang = 'en';
+        let currentCategory = 'all';
+
+        const translations = {
+            en: {
+                subTitle: "Swipe Files, AI Generator & Video Scripts",
+                btnApiKey: "Gemini Key",
+                genHeading: "AI Script & Prompt Generator",
+                lblProduct: "Product / Service / Niche Description",
+                lblStyle: "Ad Style / Format",
+                lblGoal: "Video Duration / Type",
+                btnGenerate: "Generate Script & Prompts",
+                lblResult: "Generated Output",
+                btnCopy: "Copy Result",
+                libHeading: "Meta Ads Swipe File Templates",
+                catAll: "All",
+                catEcom: "E-commerce",
+                catComedy: "Comedy / Reels",
+                catEdutainment: "Edutainment",
+                sidebarClientTitle: "Client Pitch Quick Guide",
+                sidebarClientDesc: "When a client asks for a specific ad style or short video, use these templates or generate custom scripts instantly.",
+                savedHeading: "Saved Scripts",
+                btnClear: "Clear All",
+                noSaved: "No saved scripts yet."
+            },
+            tl: {
+                subTitle: "Mga Swipe Files, AI Generator at Video Scripts",
+                btnApiKey: "Gemini Key",
+                genHeading: "AI Script & Prompt Generator",
+                lblProduct: "Paglalarawan ng Produkto / Serbisyo / Niche",
+                lblStyle: "Estilo ng Ad / Format",
+                lblGoal: "Tagal ng Video / Uri",
+                btnGenerate: "Gumawa ng Script at Prompts",
+                lblResult: "Resulta ng AI",
+                btnCopy: "Kopyahin",
+                libHeading: "Mga Template ng Meta Ads Swipe File",
+                catAll: "Lahat",
+                catEcom: "E-commerce",
+                catComedy: "Komedya / Reels",
+                catEdutainment: "Edutainment",
+                sidebarClientTitle: "Gabay para sa Kliyente",
+                sidebarClientDesc: "Kung humingi ang kliyente ng piho na estilo o short video, gamitin ang mga template o mag-generate agad.",
+                savedHeading: "Mga Naka-save na Script",
+                btnClear: "Burahin Lahat",
+                noSaved: "Wala pang naka-save na script."
+            },
+            ceb: {
+                subTitle: "Swipe Files, AI Generator ug Video Scripts",
+                btnApiKey: "Gemini Key",
+                genHeading: "AI Script & Prompt Generator",
+                lblProduct: "Paghulagway sa Produkto / Serbisyo / Niche",
+                lblStyle: "Estilo sa Ad / Format",
+                lblGoal: "Gitas-on sa Video / Uri",
+                btnGenerate: "Paghimo og Script ug Prompts",
+                lblResult: "Resulta sa AI",
+                btnCopy: "Kopya",
+                libHeading: "Mga Template sa Meta Ads Swipe File",
+                catAll: "Tanan",
+                catEcom: "E-commerce",
+                catComedy: "Komedya / Reels",
+                catEdutainment: "Edutainment",
+                sidebarClientTitle: "Giya para sa Kliyente",
+                sidebarClientDesc: "Kung mangayo ang kliyente og piho nga estilo o short video, gamita ang mga template o pag-generate dayon.",
+                savedHeading: "Mga Na-save nga Script",
+                btnClear: "Pag-clear Tanan",
+                noSaved: "Wala pa nay na-save nga script."
+            }
+        };
+
+        const templates = [
+            {
+                id: 1,
+                category: "ecom",
+                title: "UGC Product Review Ad",
+                style: "UGC Style (9:16)",
+                hook: "Gisulayan nako ni for 7 days ug grabe ang resulta!",
+                script: "Hook: Gisulayan nako ni for 7 days...
+Body: Gipakita ang unboxing ug paggamit sa produkto. Gihisgutan ang nag-unang problema ug giunsa kini pagsulsolve sa item.
+Call to Action: I-click ang link sa ubos para maka-avail sa discount karon!",
+                prompt: "Vertical 9:16 UGC style video, bright lighting, customer holding product in modern living room, cinematic and natural movement."
+            },
+            {
+                id: 2,
+                category: "comedy",
+                title: "Expectation vs Reality Adulting",
+                style: "Comedy / Edutainment",
+                hook: "Akong gihunahuna nga dali ra ang adulting, pero...",
+                script: "Hook: Akong gihunahuna nga dali ra...
+Body: Nakakatawa nga sitwasyon sa pag-budget o trabaho nga pamilyar sa kadaghanan.
+Call to Action: Taggi ang imong amigo nga pareho ani og kasinatian!",
+                prompt: "Funny cinematic skit, split screen showing expectation vs reality, vibrant colors, expressive facial reactions."
+            },
+            {
+                id: 3,
+                category: "edutainment",
+                title: "Micro-Tutorial & Discovery",
+                style: "B-Roll + Voiceover",
+                hook: "Tulo ka butang nga wala gitudlo sa eskwelahan bahin sa...",
+                script: "Hook: Tulo kabutang nga wala gibutyag...
+Body: Paspas nga pagpasabot sa 3 ka tip o hinungdanon nga impormasyon gamit ang limpyo nga B-roll.
+Call to Action: I-save kini nga video para dili nimo kalimtan!",
+                prompt: "Clean minimal tech B-roll, smooth camera pan, 4k resolution, professional lighting and composition."
+            },
+            {
+                id: 4,
+                category: "ecom",
+                title: "Founder-Led Problem Solver",
+                style: "Founder-Led / Talking Head",
+                hook: "Ngano gibuhat namo kini nga produkto...",
+                script: "Hook: Gikapoy na ba ka sa karaan nga pamaagi?
+Body: Ang founder nag-istorya sa personal nga hagit ug giunsa paghimo ang solusyon.
+Call to Action: Suportahan ang local brand, order na karon!",
+                prompt: "Founder talking directly to camera, professional studio setup, soft background blur, engaging caption overlays."
+            }
+        ];
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            ['en', 'tl', 'ceb'].forEach(l => {
+                const btn = document.getElementById(`lang-${l}`);
+                if (l === lang) {
+                    btn.className = "px-3 py-1.5 rounded-md text-xs font-medium transition bg-green-600 text-white shadow";
+                } else {
+                    btn.className = "px-3 py-1.5 rounded-md text-xs font-medium transition text-slate-400 hover:text-white";
+                }
+            });
+
+            const t = translations[lang];
+            document.getElementById('sub-title').innerText = t.subTitle;
+            document.getElementById('btn-api-key').innerText = t.btnApiKey;
+            document.getElementById('gen-heading').innerText = t.genHeading;
+            document.getElementById('lbl-product').innerText = t.lblProduct;
+            document.getElementById('lbl-style').innerText = t.lblStyle;
+            document.getElementById('lbl-goal').innerText = t.lblGoal;
+            document.getElementById('btn-generate').innerText = t.btnGenerate;
+            document.getElementById('lbl-result').innerText = t.lblResult;
+            document.getElementById('btn-copy').innerText = t.btnCopy;
+            document.getElementById('lib-heading').innerText = t.libHeading;
+            document.getElementById('cat-all').innerText = t.catAll;
+            document.getElementById('cat-ecom').innerText = t.catEcom;
+            document.getElementById('cat-comedy').innerText = t.catComedy;
+            document.getElementById('cat-edutainment').innerText = t.catEdutainment;
+            document.getElementById('sidebar-client-title').innerText = t.sidebarClientTitle;
+            document.getElementById('sidebar-client-desc').innerText = t.sidebarClientDesc;
+            document.getElementById('saved-heading').innerText = t.savedHeading;
+            document.getElementById('btn-clear').innerText = t.btnClear;
+            document.getElementById('no-saved').innerText = t.noSaved;
+
+            renderTemplates();
+            renderSaved();
+        }
+
+        function filterCategory(cat) {
+            currentCategory = cat;
+            ['all', 'ecom', 'comedy', 'edutainment'].forEach(c => {
+                const btn = document.getElementById(`cat-${c}`);
+                if (c === cat) {
+                    btn.className = "px-3 py-1.5 rounded-lg text-xs font-medium bg-green-600 text-white transition";
+                } else {
+                    btn.className = "px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition";
+                }
+            });
+            renderTemplates();
+        }
+
+        function renderTemplates() {
+            const grid = document.getElementById('templates-grid');
+            grid.innerHTML = '';
+
+            const filtered = currentCategory === 'all' ? templates : templates.filter(t => t.category === currentCategory);
+
+            filtered.forEach(t => {
+                const card = document.createElement('div');
+                card.className = "bg-slate-900 border border-slate-800 rounded-2xl p-5 hover:border-slate-700 transition flex flex-col justify-between";
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="font-bold text-white text-sm">${t.title}</h3>
+                            <span class="text-[10px] bg-slate-800 text-green-400 px-2 py-0.5 rounded-full font-medium">${t.style}</span>
+                        </div>
+                        <p class="text-xs text-slate-400 italic mb-3">Hook: "${t.hook}"</p>
+                    </div>
+                    <div class="flex items-center gap-2 pt-3 border-t border-slate-800">
+                        <button onclick="useTemplate(${t.id})" class="flex-1 bg-slate-800 hover:bg-slate-700 text-xs font-medium py-2 rounded-xl text-slate-200 transition">
+                            <i class="fa-solid fa-bolt text-yellow-400 mr-1"></i> Use Template
+                        </button>
+                        <button onclick="saveTemplate(${t.id})" class="bg-slate-800 hover:bg-slate-700 p-2 rounded-xl text-slate-300 transition" title="Save Script">
+                            <i class="fa-regular fa-bookmark"></i>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function useTemplate(id) {
+            const t = templates.find(item => item.id === id);
+            if (!t) return;
+            document.getElementById('ai-product').value = t.title;
+            document.getElementById('ai-output-container').classList.remove('hidden');
+            document.getElementById('ai-result-content').innerText = `=== TEMPLATE: ${t.title} (${currentLang.toUpperCase()}) ===
+
+HOOK:
+"${t.hook}"
+
+SCRIPT FLOW:
+${t.script}
+
+AI VIDEO/IMAGE PROMPT:
+${t.prompt}`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        async function generateWithAI() {
+            const product = document.getElementById('ai-product').value.trim();
+            const style = document.getElementById('ai-style').value;
+            const duration = document.getElementById('ai-duration').value;
+            const apiKey = localStorage.getItem('gemini_api_key');
+
+            if (!product) {
+                alert("Palihug og butang og produkto o niche una.");
+                return;
+            }
+
+            const outputContainer = document.getElementById('ai-output-container');
+            const resultContent = document.getElementById('ai-result-content');
+            outputContainer.classList.remove('hidden');
+            resultContent.innerText = "Nag-generate ang AI... Palihug maghulat kadiyot...";
+
+            if (!apiKey) {
+                // Fallback simulation if no API key is provided
+                setTimeout(() => {
+                    resultContent.innerText = `[Simulated AI Output - Lang: ${currentLang.toUpperCase()}]
+
+Product: ${product}
+Style: ${style} (${duration})
+
+1. 3-SECOND HOOK:
+"Gikulbaan ka ba nga basin masayang lang ang imong kwarta ani? Ayaw na pagduhaduha..."
+
+2. VIDEO SCRIPT FLOW:
+- Hook (0-3s): Catchy visual + Problem statement.
+- Body (3-20s): Benefits demonstration using ${style}.
+- CTA (20-30s): Order now / Click link below.
+
+3. AI PROMPT (Seedance / Video Express):
+Vertical 9:16, 4k cinematic, professional studio lighting, showing ${product} in action, engaging movement.
+
+(Tip: I-click ang 'Gemini Key' sa ibabaw para magbutang og tinuod nga API key).`;
+                }, 1000);
+                return;
+            }
+
+            try {
+                const promptText = `Act as an expert Meta Ads copywriter and AI video prompt engineer. Create a high-converting ad package in language '${currentLang}' for: "${product}". Style: ${style}, Duration: ${duration}. Provide: 1) Three strong 3-second hooks, 2) A complete video voiceover script, 3) Detailed AI visual prompts for video generators like Seedance or Video Express. Format cleanly with clear headings.`;
+                
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
+                });
+
+                const data = await response.json();
+                if (data.candidates && data.candidates[0].content.parts[0].text) {
+                    resultContent.innerText = data.candidates[0].content.parts[0].text;
+                } else {
+                    resultContent.innerText = "Wala nigawas ang tubag gikan sa Gemini API. Susiha ang imong API key.";
+                }
+            } catch (err) {
+                resultContent.innerText = "Error sa pag-connect sa API: " + err.message;
+            }
+        }
+
+        function copyOutput() {
+            const text = document.getElementById('ai-result-content').innerText;
+            navigator.clipboard.writeText(text);
+            alert("Nakopya na sa clipboard!");
+        }
+
+        function openApiKeyModal() {
+            document.getElementById('api-modal').classList.remove('hidden');
+            document.getElementById('api-key-input').value = localStorage.getItem('gemini_api_key') || '';
+        }
+
+        function closeApiKeyModal() {
+            document.getElementById('api-modal').classList.add('hidden');
+        }
+
+        function saveApiKey() {
+            const key = document.getElementById('api-key-input').value.trim();
+            localStorage.setItem('gemini_api_key', key);
+            closeApiKeyModal();
+            alert("Na-save na ang API key!");
+        }
+
+        function saveTemplate(id) {
+            const t = templates.find(item => item.id === id);
+            if (!t) return;
+            let saved = JSON.parse(localStorage.getItem('saved_scripts') || '[]');
+            saved.push({ title: t.title, content: t.script, date: new Date().toLocaleDateString() });
+            localStorage.setItem('saved_scripts', JSON.stringify(saved));
+            renderSaved();
+            alert("Na-save na sa imong Swipe File list!");
+        }
+
+        function renderSaved() {
+            const list = document.getElementById('saved-list');
+            let saved = JSON.parse(localStorage.getItem('saved_scripts') || '[]');
+            if (saved.length === 0) {
+                list.innerHTML = `<p class="text-xs text-slate-500 italic text-center py-4">${translations[currentLang].noSaved}</p>`;
+                return;
+            }
+            list.innerHTML = '';
+            saved.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = "bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs space-y-1";
+                div.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-white">${item.title}</span>
+                        <span class="text-[10px] text-slate-500">${item.date}</span>
+                    </div>
+                    <p class="text-slate-400 truncate">${item.content.split('
+')[0]}</p>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        function clearSaved() {
+            localStorage.removeItem('saved_scripts');
+            renderSaved();
+        }
+
+        // Init
+        renderTemplates();
+        renderSaved();
+    </script>
+</body>
+</html>
