@@ -1088,6 +1088,34 @@
             });
         }
 
+        function loadVideo(id) {
+            const inputVal = document.getElementById('input-' + id).value.trim();
+            const container = document.getElementById('player-' + id);
+            if (!inputVal) {
+                alert("Palihog og butang sa video URL una.");
+                return;
+            }
+            
+            // Check if YouTube link
+            let embedUrl = inputVal;
+            if (inputVal.includes('youtube.com') || inputVal.includes('youtu.be')) {
+                let videoId = '';
+                if (inputVal.includes('youtu.be/')) {
+                    videoId = inputVal.split('youtu.be/')[1].split('?')[0];
+                } else if (inputVal.includes('watch?v=')) {
+                    videoId = inputVal.split('watch?v=')[1].split('&')[0];
+                }
+                if (videoId) {
+                    embedUrl = `https://www.youtube.com/embed/${videoId}`;
+                    container.innerHTML = `<iframe class="w-full h-full" src="${embedUrl}" title="YouTube video player" frameborder="0" allowfullscreen></iframe>`;
+                    return;
+                }
+            }
+            
+            // Default HTML5 video or iframe container
+            container.innerHTML = `<video controls class="w-full h-full object-cover"><source src="${inputVal}" type="video/mp4">Your browser does not support the video tag.</video>`;
+        }
+
         setLanguage('en');
     </script>
 
@@ -1104,7 +1132,7 @@
             </div>
             
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                <p class="text-xs text-slate-500">I-organisar ug i-upload ang imong mga hinimo nga video dinhi pinaagi sa kategorya.</p>
+                <p class="text-xs text-slate-500">I-paste ang link sa imong video sa ubos unya i-klik ang "Load Video" aron mo-play kini direkta.</p>
                 
                 <!-- Category Tabs for Portfolio -->
                 <div class="flex flex-wrap gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
@@ -1125,13 +1153,16 @@
                         <span class="font-bold text-xs text-slate-900">Ravule Doctor VSL Ad</span>
                         <span class="text-[9px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full font-semibold">Meta Ads</span>
                     </div>
-                    <div class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
-                        <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/60 p-4 text-center">
-                            <i class="fa-solid fa-cloud-arrow-up text-indigo-400 text-2xl mb-1"></i>
-                            <span class="text-[11px] text-white font-medium">I-upload o i-paste ang video link</span>
+                    <div id="player-1" class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
+                        <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 p-4 text-center">
+                            <i class="fa-solid fa-clapperboard text-indigo-400 text-2xl mb-1"></i>
+                            <span class="text-[11px] text-white font-medium">I-load ang video link aron ma-play</span>
                         </div>
                     </div>
-                    <input type="text" placeholder="I-paste ang video URL o Google Drive link diri..." class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-indigo-500">
+                    <div class="flex gap-2">
+                        <input type="text" id="input-1" placeholder="Paste YouTube or Video URL..." class="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-indigo-500">
+                        <button onclick="loadVideo(1)" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition">Load</button>
+                    </div>
                 </div>
 
                 <!-- Item 2: AI Short Movies -->
@@ -1140,13 +1171,16 @@
                         <span class="font-bold text-xs text-slate-900">AI Adventure Jungle Film</span>
                         <span class="text-[9px] bg-pink-50 text-pink-700 px-2 py-0.5 rounded-full font-semibold">AI Short Movies</span>
                     </div>
-                    <div class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
-                        <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/60 p-4 text-center">
-                            <i class="fa-solid fa-cloud-arrow-up text-pink-400 text-2xl mb-1"></i>
-                            <span class="text-[11px] text-white font-medium">I-upload o i-paste ang video link</span>
+                    <div id="player-2" class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
+                        <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 p-4 text-center">
+                            <i class="fa-solid fa-clapperboard text-pink-400 text-2xl mb-1"></i>
+                            <span class="text-[11px] text-white font-medium">I-load ang video link aron ma-play</span>
                         </div>
                     </div>
-                    <input type="text" placeholder="I-paste ang video URL o Google Drive link diri..." class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-indigo-500">
+                    <div class="flex gap-2">
+                        <input type="text" id="input-2" placeholder="Paste YouTube or Video URL..." class="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-indigo-500">
+                        <button onclick="loadVideo(2)" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition">Load</button>
+                    </div>
                 </div>
 
                 <!-- Item 3: FB Reels -->
@@ -1155,13 +1189,16 @@
                         <span class="font-bold text-xs text-slate-900">Funny Cat Stealing Items Skit</span>
                         <span class="text-[9px] bg-amber-50 text-amber-700 px-2 py-0.5 rounded-full font-semibold">FB Reels</span>
                     </div>
-                    <div class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
-                        <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/60 p-4 text-center">
-                            <i class="fa-solid fa-cloud-arrow-up text-amber-400 text-2xl mb-1"></i>
-                            <span class="text-[11px] text-white font-medium">I-upload o i-paste ang video link</span>
+                    <div id="player-3" class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
+                        <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 p-4 text-center">
+                            <i class="fa-solid fa-clapperboard text-amber-400 text-2xl mb-1"></i>
+                            <span class="text-[11px] text-white font-medium">I-load ang video link aron ma-play</span>
                         </div>
                     </div>
-                    <input type="text" placeholder="I-paste ang video URL o Google Drive link diri..." class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-indigo-500">
+                    <div class="flex gap-2">
+                        <input type="text" id="input-3" placeholder="Paste YouTube or Video URL..." class="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-indigo-500">
+                        <button onclick="loadVideo(3)" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition">Load</button>
+                    </div>
                 </div>
 
                 <!-- Item 4: Storytelling -->
@@ -1170,18 +1207,21 @@
                         <span class="font-bold text-xs text-slate-900">Map That Predicted Continents</span>
                         <span class="text-[9px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full font-semibold">Storytelling</span>
                     </div>
-                    <div class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
-                        <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/60 p-4 text-center">
-                            <i class="fa-solid fa-cloud-arrow-up text-emerald-400 text-2xl mb-1"></i>
-                            <span class="text-[11px] text-white font-medium">I-upload o i-paste ang video link</span>
+                    <div id="player-4" class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
+                        <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 p-4 text-center">
+                            <i class="fa-solid fa-clapperboard text-emerald-400 text-2xl mb-1"></i>
+                            <span class="text-[11px] text-white font-medium">I-load ang video link aron ma-play</span>
                         </div>
                     </div>
-                    <input type="text" placeholder="I-paste ang video URL o Google Drive link diri..." class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-indigo-500">
+                    <div class="flex gap-2">
+                        <input type="text" id="input-4" placeholder="Paste YouTube or Video URL..." class="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-indigo-500">
+                        <button onclick="loadVideo(4)" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition">Load</button>
+                    </div>
                 </div>
             </div>
 
             <div class="flex justify-between items-center pt-3 border-t border-slate-100">
-                <span class="text-[11px] text-slate-400 italic">Tip: Pwede nimo i-paste ang imong Google Drive o YouTube link direkta sa matag box.</span>
+                <span class="text-[11px] text-slate-400 italic">Paghulagway: I-paste ang YouTube link ug i-klik ang Load aron motugtog dayon ang video.</span>
                 <button onclick="closePortfolioModal()" class="px-4 py-2 rounded-xl text-xs font-semibold btn-gemini-sparkle text-white transition">Close Portfolio</button>
             </div>
         </div>
