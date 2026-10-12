@@ -6,17 +6,6 @@
     <title>AI Meta Ads Master Studio & Creator Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: { 50: '#f0fdf4', 500: '#22c55e', 600: '#16a34a', 700: '#15803d' }
-                    }
-                }
-            }
-        }
-    </script>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased">
     <!-- Header -->
@@ -52,13 +41,11 @@
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
         
-        <!-- Left / Center: Generator & Categories (2 Cols) -->
+        <!-- Left / Center: Generator & Categories -->
         <div class="lg:col-span-2 space-y-6">
             
             <!-- AI Generator Box -->
             <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden">
-                <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-green-500/10 rounded-full blur-2xl pointer-events-none"></div>
-                
                 <h2 class="text-lg font-bold text-white flex items-center gap-2 mb-4">
                     <i class="fa-solid fa-robot text-green-400"></i>
                     <span id="gen-heading">AI Ad Concept & Script Generator</span>
@@ -97,7 +84,7 @@
                         </div>
                     </div>
                     
-                    <button onclick="generateWithAI()" class="w-full bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-500 hover:to-emerald-400 text-slate-950 font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-green-600/20 transition flex items-center justify-center gap-2">
+                    <button onclick="generateWithAI()" class="w-full bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-500 hover:to-emerald-400 text-slate-950 font-bold py-3.5 px-6 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
                         <i class="fa-solid fa-wand-magic-sparkles"></i>
                         <span id="btn-generate">Generate AI Ad Package</span>
                     </button>
@@ -128,49 +115,27 @@
                         <span id="lib-heading">10-Category Master Catalog</span>
                     </h2>
                     
-                    <!-- Category Filter Tabs -->
                     <div class="flex flex-wrap gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800 max-h-36 overflow-y-auto">
                         <button onclick="filterCatalog('all')" id="cat-all" class="px-2.5 py-1 rounded-lg text-xs font-medium bg-green-600 text-white transition">All</button>
-                        <button onclick="filterCatalog('Product')" id="cat-prod" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Product/Luxury</button>
-                        <button onclick="filterCatalog('Cinematic')" id="cat-cine" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Cinematic/AI</button>
-                        <button onclick="filterCatalog('Direct')" id="cat-dir" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Direct Response</button>
-                        <button onclick="filterCatalog('UGC')" id="cat-ugc" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">UGC/Testimonial</button>
-                        <button onclick="filterCatalog('Story')" id="cat-story" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Story/Emotion</button>
-                        <button onclick="filterCatalog('Presenter')" id="cat-pres" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Presenter/Avatar</button>
-                        <button onclick="filterCatalog('Design')" id="cat-des" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Design/Typography</button>
-                        <button onclick="filterCatalog('Photo')" id="cat-photo" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Photography</button>
-                        <button onclick="filterCatalog('Industry')" id="cat-ind" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Industry Specific</button>
-                        <button onclick="filterCatalog('Hook')" id="cat-hook" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Hooks & Frameworks</button>
+                        <button onclick="filterCatalog('Product')" id="cat-prod" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Product</button>
+                        <button onclick="filterCatalog('Cinematic')" id="cat-cine" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Cinematic</button>
+                        <button onclick="filterCatalog('Direct')" id="cat-dir" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Direct</button>
+                        <button onclick="filterCatalog('UGC')" id="cat-ugc" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">UGC</button>
+                        <button onclick="filterCatalog('Story')" id="cat-stor" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Story</button>
+                        <button onclick="filterCatalog('Presenter')" id="cat-pres" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Presenter</button>
+                        <button onclick="filterCatalog('Design')" id="cat-desi" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Design</button>
+                        <button onclick="filterCatalog('Photo')" id="cat-phot" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Photo</button>
+                        <button onclick="filterCatalog('Industry')" id="cat-indu" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Industry</button>
+                        <button onclick="filterCatalog('Hook')" id="cat-hook" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Hooks</button>
                     </div>
                 </div>
 
-                <!-- Catalog Cards Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[600px] overflow-y-auto pr-2" id="catalog-grid"></div>
             </section>
-
         </div>
 
-        <!-- Right Sidebar: Saved Scripts & Client Guide (1 Col) -->
+        <!-- Right Sidebar: Saved Scripts -->
         <div class="space-y-6">
-            
-            <!-- Client Pitch Quick Guide -->
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
-                <h3 class="font-bold text-sm text-white flex items-center gap-2 mb-3">
-                    <i class="fa-solid fa-briefcase text-green-400"></i>
-                    <span id="sidebar-client-title">Client Pitch Quick Guide</span>
-                </h3>
-                <p class="text-xs text-slate-400 leading-relaxed mb-4" id="sidebar-client-desc">
-                    Kung moingon ang client og *"Himoi ko ug ad style ani"* o *"2-minute short video"*, pili lang sa master catalog o i-generate dayon diri.
-                </p>
-                <div class="space-y-2">
-                    <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 text-xs">
-                        <span class="font-semibold text-green-400 block mb-1">1. 10 Master Categories</span>
-                        <span class="text-slate-300">Naglakip sa 125+ ka styles gikan sa Product Showcase hangtod sa Hooks & Frameworks.</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Saved Scripts Box -->
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
                 <div class="flex justify-between items-center mb-3">
                     <h3 class="font-bold text-sm text-white flex items-center gap-2">
@@ -183,7 +148,6 @@
                     <p class="text-xs text-slate-500 italic text-center py-4" id="no-saved">No saved scripts yet.</p>
                 </div>
             </div>
-
         </div>
     </main>
 
@@ -193,10 +157,8 @@
             <h3 class="text-lg font-bold text-white flex items-center gap-2">
                 <i class="fa-solid fa-key text-yellow-400"></i> Set Gemini API Key
             </h3>
-            <p class="text-xs text-slate-400">
-                Pagsulod sa imong Google Gemini API key aron moandar ang AI Generator. Kung wala, mogamit kini og built-in simulator.
-            </p>
-            <input type="password" id="api-key-input" placeholder="AIzaSy..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-green-500">
+            <p class="text-xs text-slate-400">Pagsulod sa imong Google Gemini API key aron moandar ang AI Generator.</p>
+            <input type="password" id="api-key-input" placeholder="AIzaSy..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-green-500">
             <div class="flex justify-end gap-2 pt-2">
                 <button onclick="closeApiKeyModal()" class="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white bg-slate-800 transition">Cancel</button>
                 <button onclick="saveApiKey()" class="px-4 py-2 rounded-xl text-xs font-medium bg-green-600 text-white hover:bg-green-500 transition">Save Key</button>
@@ -205,64 +167,13 @@
     </div>
 
     <script>
-        let currentLang = 'en';
+        let currentLang = 'ceb';
         let currentFilter = 'all';
 
         const translations = {
-            en: {
-                subTitle: "125+ Meta Ads Master Catalog & AI Generator",
-                btnApiKey: "Gemini Key",
-                genHeading: "AI Ad Concept & Script Generator",
-                lblProduct: "Product / Service / Niche Description",
-                lblCategory: "Master Ad Category",
-                lblGoal: "Video Duration / Type",
-                btnGenerate: "Generate AI Ad Package",
-                lblResult: "Generated Output",
-                btnCopy: "Copy",
-                btnSaveOut: "Save",
-                libHeading: "10-Category Master Catalog",
-                sidebarClientTitle: "Client Pitch Quick Guide",
-                sidebarClientDesc: "When a client asks for a specific ad style or short video, select from the master catalog or generate custom scripts instantly.",
-                savedHeading: "Saved Scripts",
-                btnClear: "Clear All",
-                noSaved: "No saved scripts yet."
-            },
-            tl: {
-                subTitle: "125+ Meta Ads Master Catalog at AI Generator",
-                btnApiKey: "Gemini Key",
-                genHeading: "AI Ad Concept & Script Generator",
-                lblProduct: "Paglalarawan ng Produkto / Serbisyo / Niche",
-                lblCategory: "Kategorya ng Ad",
-                lblGoal: "Tagal ng Video / Uri",
-                btnGenerate: "Gumawa ng AI Ad Package",
-                lblResult: "Resulta ng AI",
-                btnCopy: "Kopyahin",
-                btnSaveOut: "I-save",
-                libHeading: "10-Category Master Catalog",
-                sidebarClientTitle: "Gabay para sa Kliyente",
-                sidebarClientDesc: "Kung humingi ang kliyente ng piho na estilo, pumili sa catalog o mag-generate agad.",
-                savedHeading: "Mga Naka-save na Script",
-                btnClear: "Burahin Lahat",
-                noSaved: "Wala pang naka-save na script."
-            },
-            ceb: {
-                subTitle: "125+ Meta Ads Master Catalog ug AI Generator",
-                btnApiKey: "Gemini Key",
-                genHeading: "AI Ad Concept & Script Generator",
-                lblProduct: "Paghulagway sa Produkto / Serbisyo / Niche",
-                lblCategory: "Master Ad Category",
-                lblGoal: "Gitas-on sa Video / Uri",
-                btnGenerate: "Paghimo og AI Ad Package",
-                lblResult: "Resulta sa AI",
-                btnCopy: "Kopya",
-                btnSaveOut: "I-save",
-                libHeading: "10-Category Master Catalog",
-                sidebarClientTitle: "Giya para sa Kliyente",
-                sidebarClientDesc: "Kung mangayo ang kliyente og piho nga estilo, pilia sa master catalog o pag-generate dayon.",
-                savedHeading: "Mga Na-save nga Script",
-                btnClear: "Pag-clear Tanan",
-                noSaved: "Wala pa nay na-save nga script."
-            }
+            en: { subTitle: "125+ Meta Ads Master Catalog & AI Generator", btnApiKey: "Gemini Key", genHeading: "AI Ad Concept & Script Generator", lblProduct: "Product / Service / Niche Description", lblCategory: "Master Ad Category", lblGoal: "Video Duration / Type", btnGenerate: "Generate AI Ad Package", lblResult: "Generated Output", btnCopy: "Copy", btnSaveOut: "Save", libHeading: "10-Category Master Catalog", savedHeading: "Saved Scripts", btnClear: "Clear All", noSaved: "No saved scripts yet." },
+            tl: { subTitle: "125+ Meta Ads Master Catalog at AI Generator", btnApiKey: "Gemini Key", genHeading: "AI Ad Concept & Script Generator", lblProduct: "Paglalarawan ng Produkto / Serbisyo / Niche", lblCategory: "Kategorya ng Ad", lblGoal: "Tagal ng Video / Uri", btnGenerate: "Gumawa ng AI Ad Package", lblResult: "Resulta ng AI", btnCopy: "Kopyahin", btnSaveOut: "I-save", libHeading: "10-Category Master Catalog", savedHeading: "Mga Naka-save na Script", btnClear: "Burahin Lahat", noSaved: "Wala pang naka-save na script." },
+            ceb: { subTitle: "125+ Meta Ads Master Catalog ug AI Generator", btnApiKey: "Gemini Key", genHeading: "AI Ad Concept & Script Generator", lblProduct: "Paghulagway sa Produkto / Serbisyo / Niche", lblCategory: "Master Ad Category", lblGoal: "Gitas-on sa Video / Uri", btnGenerate: "Paghimo og AI Ad Package", lblResult: "Resulta sa AI", btnCopy: "Kopya", btnSaveOut: "I-save", libHeading: "10-Category Master Catalog", savedHeading: "Mga Na-save nga Script", btnClear: "Pag-clear Tanan", noSaved: "Wala pa nay na-save nga script." }
         };
 
         const masterCatalog = [
@@ -307,8 +218,6 @@
             document.getElementById('btn-copy').innerText = t.btnCopy;
             document.getElementById('btn-save-out').innerText = t.btnSaveOut;
             document.getElementById('lib-heading').innerText = t.libHeading;
-            document.getElementById('sidebar-client-title').innerText = t.sidebarClientTitle;
-            document.getElementById('sidebar-client-desc').innerText = t.sidebarClientDesc;
             document.getElementById('saved-heading').innerText = t.savedHeading;
             document.getElementById('btn-clear').innerText = t.btnClear;
             document.getElementById('no-saved').innerText = t.noSaved;
@@ -319,17 +228,6 @@
 
         function filterCatalog(cat) {
             currentFilter = cat;
-            ['all', 'Product', 'Cinematic', 'Direct', 'UGC', 'Story', 'Presenter', 'Design', 'Photo', 'Industry', 'Hook'].forEach(c => {
-                const btnId = c === 'all' ? 'cat-all' : 'cat-' + c.toLowerCase().substring(0,4);
-                const btn = document.getElementById(btnId);
-                if (btn) {
-                    if (c === cat) {
-                        btn.className = "px-2.5 py-1 rounded-lg text-xs font-medium bg-green-600 text-white transition";
-                    } else {
-                        btn.className = "px-2.5 py-1 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition";
-                    }
-                }
-            });
             renderCatalog();
         }
 
@@ -364,4 +262,91 @@
 
         async function generateWithAI() {
             const product = document.getElementById('ai-product').value.trim();
-            const category = document.getElementById('ai
+            const category = document.getElementById('ai-category-select').value;
+            const duration = document.getElementById('ai-duration').value;
+            const apiKey = localStorage.getItem('gemini_api_key');
+
+            if (!product) {
+                alert("Palihug og butang og produkto o niche una sa text box.");
+                return;
+            }
+
+            const outputContainer = document.getElementById('ai-output-container');
+            const resultContent = document.getElementById('ai-result-content');
+            outputContainer.classList.remove('hidden');
+            resultContent.innerText = "Nag-generate ang AI ad package... Palihug maghulat kadiyot...";
+
+            if (!apiKey || apiKey.length < 10) {
+                setTimeout(() => {
+                    resultContent.innerText = `[AI Meta Ads Master Studio - ${currentLang.toUpperCase()}]\n\nPRODUCT/NICHE: ${product}\nCATEGORY STYLE: ${category} (${duration})\n\n1. 3-SECOND VIRAL HOOKS:\n- "Gisulayan nako ni para sa akong negosyo ug grabe ang resulta!"\n- "Stop scrolling kung gusto nimo masulbad kining problemaha..."\n\n2. COMPLETE AD SCRIPT FLOW:\n- Hook (0-3s): High-converting attention grabber.\n- Body (3-20s): Deep dive utilizing ${category} creative framework.\n- Call to Action (20-30s): Click link below to claim your offer!\n\n3. AI VIDEO & IMAGE PROMPTS (Seedance / Video Express):\nVertical 9:16, 4k cinematic resolution, professional studio lighting, showing ${product} in action.`;
+                }, 600);
+                return;
+            }
+
+            try {
+                const promptText = `Act as an expert Meta Ads copywriter and AI video prompt engineer. Create a high-converting ad package in language '${currentLang}' for: "${product}" using master category style "${category}" (${duration}). Provide 3-second hooks, a complete voiceover script, and AI visual prompts.`;
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
+                });
+                const data = await response.json();
+                if (data.candidates && data.candidates[0].content.parts[0].text) {
+                    resultContent.innerText = data.candidates[0].content.parts[0].text;
+                } else {
+                    resultContent.innerText = "Wala nigawas ang tubag gikan sa Gemini API.";
+                }
+            } catch (err) {
+                resultContent.innerText = "Error sa pag-connect sa API: " + err.message;
+            }
+        }
+
+        function copyOutput() {
+            navigator.clipboard.writeText(document.getElementById('ai-result-content').innerText);
+            alert("Nakopya na sa clipboard!");
+        }
+
+        function saveCurrentOutput() {
+            const text = document.getElementById('ai-result-content').innerText;
+            const product = document.getElementById('ai-product').value || "AI Meta Ad Script";
+            if (!text || text.includes("Nag-generate")) return;
+            let saved = JSON.parse(localStorage.getItem('saved_scripts') || '[]');
+            saved.push({ title: product.substring(0, 30), content: text, date: new Date().toLocaleDateString() });
+            localStorage.setItem('saved_scripts', JSON.stringify(saved));
+            renderSaved();
+            alert("Na-save na sa imong Swipe File list!");
+        }
+
+        function openApiKeyModal() { document.getElementById('api-modal').classList.remove('hidden'); }
+        function closeApiKeyModal() { document.getElementById('api-modal').classList.add('hidden'); }
+        function saveApiKey() {
+            localStorage.setItem('gemini_api_key', document.getElementById('api-key-input').value.trim());
+            closeApiKeyModal();
+            alert("Na-save na ang imong API key!");
+        }
+
+        function renderSaved() {
+            const list = document.getElementById('saved-list');
+            let saved = JSON.parse(localStorage.getItem('saved_scripts') || '[]');
+            if (saved.length === 0) {
+                list.innerHTML = `<p class="text-xs text-slate-500 italic text-center py-4">Wala pa nay na-save nga script.</p>`;
+                return;
+            }
+            list.innerHTML = '';
+            saved.forEach((item) => {
+                const div = document.createElement('div');
+                div.className = "bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs space-y-1";
+                div.innerHTML = `<div class="flex justify-between items-center"><span class="font-bold text-white">${item.title}</span><span class="text-[10px] text-slate-500">${item.date}</span></div><p class="text-slate-400 truncate">${item.content.split('\n')[0]}</p>`;
+                list.appendChild(div);
+            });
+        }
+
+        function clearSaved() {
+            localStorage.removeItem('saved_scripts');
+            renderSaved();
+        }
+
+        setLanguage('ceb');
+    </script>
+</body>
+</html>
