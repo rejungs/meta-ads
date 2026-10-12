@@ -74,21 +74,21 @@
                         <div>
                             <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5" id="lbl-style">Ad Style / Format</label>
                             <select id="ai-style" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-green-500 transition">
-                                <option value="ugc">UGC (User Generated Content) Style</option>
-                                <option value="founder">Founder-Led / Talking Head</option>
-                                <option value="broll">B-Roll + Voiceover (Lowkey)</option>
-                                <option value="transform">Before & After / Transformation</option>
-                                <option value="pas">PAS (Problem-Agitate-Solve)</option>
-                                <option value="aida">AIDA Framework</option>
+                                <option value="UGC (User Generated Content) Style">UGC (User Generated Content) Style</option>
+                                <option value="Founder-Led / Talking Head">Founder-Led / Talking Head</option>
+                                <option value="B-Roll + Voiceover (Lowkey)">B-Roll + Voiceover (Lowkey)</option>
+                                <option value="Before & After / Transformation">Before & After / Transformation</option>
+                                <option value="PAS (Problem-Agitate-Solve)">PAS (Problem-Agitate-Solve)</option>
+                                <option value="AIDA Framework">AIDA Framework</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5" id="lbl-goal">Video Duration / Type</label>
                             <select id="ai-duration" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-green-500 transition">
-                                <option value="30s">30-Second Reel / Short Ad</option>
-                                <option value="15s">15-Second Fast Hook</option>
-                                <option value="60s">60-Second Deep Dive / Story</option>
-                                <option value="2min">2-Minute Detailed Presentation</option>
+                                <option value="30-Second Reel / Short Ad">30-Second Reel / Short Ad</option>
+                                <option value="15-Second Fast Hook">15-Second Fast Hook</option>
+                                <option value="60-Second Deep Dive / Story">60-Second Deep Dive / Story</option>
+                                <option value="2-Minute Detailed Presentation">2-Minute Detailed Presentation</option>
                             </select>
                         </div>
                     </div>
@@ -103,9 +103,14 @@
                 <div id="ai-output-container" class="mt-6 hidden border border-slate-800 bg-slate-950/70 rounded-xl p-4 relative">
                     <div class="flex justify-between items-center mb-3 border-b border-slate-800 pb-2">
                         <span class="text-xs font-bold text-green-400 uppercase tracking-wider" id="lbl-result">Generated Output</span>
-                        <button onclick="copyOutput()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
-                            <i class="fa-regular fa-copy"></i> <span id="btn-copy">Copy Result</span>
-                        </button>
+                        <div class="flex items-center gap-2">
+                            <button onclick="saveCurrentOutput()" class="text-xs bg-slate-800 hover:bg-slate-700 text-green-400 px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-bookmark"></i> <span id="btn-save-out">Save</span>
+                            </button>
+                            <button onclick="copyOutput()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                                <i class="fa-regular fa-copy"></i> <span id="btn-copy">Copy</span>
+                            </button>
+                        </div>
                     </div>
                     <div id="ai-result-content" class="text-sm text-slate-200 whitespace-pre-wrap font-mono leading-relaxed"></div>
                 </div>
@@ -129,9 +134,7 @@
                 </div>
 
                 <!-- Template Cards Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="templates-grid">
-                    <!-- Cards injected via JS -->
-                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="templates-grid"></div>
             </section>
 
         </div>
@@ -178,13 +181,13 @@
     </main>
 
     <!-- API Key Modal -->
-    <div id="api-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+    <div id="api-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
             <h3 class="text-lg font-bold text-white flex items-center gap-2">
                 <i class="fa-solid fa-key text-yellow-400"></i> Set Gemini API Key
             </h3>
             <p class="text-xs text-slate-400">
-                Pagsulod sa imong Google Gemini API key aron moandar ang AI Generator. Naka-save ra kini sa imong browser (localStorage).
+                Pagsulod sa imong Google Gemini API key aron moandar ang AI Generator. Naka-save ra kini sa imong browser (localStorage). Pwede ka mangayo og libreng key sa Google AI Studio.
             </p>
             <input type="password" id="api-key-input" placeholder="AIzaSy..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-green-500">
             <div class="flex justify-end gap-2 pt-2">
@@ -195,7 +198,6 @@
     </div>
 
     <script>
-        // Language state
         let currentLang = 'en';
         let currentCategory = 'all';
 
@@ -209,7 +211,8 @@
                 lblGoal: "Video Duration / Type",
                 btnGenerate: "Generate Script & Prompts",
                 lblResult: "Generated Output",
-                btnCopy: "Copy Result",
+                btnCopy: "Copy",
+                btnSaveOut: "Save",
                 libHeading: "Meta Ads Swipe File Templates",
                 catAll: "All",
                 catEcom: "E-commerce",
@@ -231,6 +234,7 @@
                 btnGenerate: "Gumawa ng Script at Prompts",
                 lblResult: "Resulta ng AI",
                 btnCopy: "Kopyahin",
+                btnSaveOut: "I-save",
                 libHeading: "Mga Template ng Meta Ads Swipe File",
                 catAll: "Lahat",
                 catEcom: "E-commerce",
@@ -252,6 +256,7 @@
                 btnGenerate: "Paghimo og Script ug Prompts",
                 lblResult: "Resulta sa AI",
                 btnCopy: "Kopya",
+                btnSaveOut: "I-save",
                 libHeading: "Mga Template sa Meta Ads Swipe File",
                 catAll: "Tanan",
                 catEcom: "E-commerce",
@@ -272,20 +277,16 @@
                 title: "UGC Product Review Ad",
                 style: "UGC Style (9:16)",
                 hook: "Gisulayan nako ni for 7 days ug grabe ang resulta!",
-                script: "Hook: Gisulayan nako ni for 7 days...
-Body: Gipakita ang unboxing ug paggamit sa produkto. Gihisgutan ang nag-unang problema ug giunsa kini pagsulsolve sa item.
-Call to Action: I-click ang link sa ubos para maka-avail sa discount karon!",
+                script: "Hook: Gisulayan nako ni for 7 days...\nBody: Gipakita ang unboxing ug paggamit sa produkto.\nCall to Action: I-click ang link sa ubos para maka-avail sa discount karon!",
                 prompt: "Vertical 9:16 UGC style video, bright lighting, customer holding product in modern living room, cinematic and natural movement."
             },
             {
                 id: 2,
                 category: "comedy",
                 title: "Expectation vs Reality Adulting",
-                style: "Comedy / Edutainment",
+                style: "Comedy / Reels",
                 hook: "Akong gihunahuna nga dali ra ang adulting, pero...",
-                script: "Hook: Akong gihunahuna nga dali ra...
-Body: Nakakatawa nga sitwasyon sa pag-budget o trabaho nga pamilyar sa kadaghanan.
-Call to Action: Taggi ang imong amigo nga pareho ani og kasinatian!",
+                script: "Hook: Akong gihunahuna nga dali ra...\nBody: Nakakatawa nga sitwasyon sa pag-budget o trabaho nga pamilyar sa kadaghanan.\nCall to Action: Taggi ang imong amigo nga pareho ani og kasinatian!",
                 prompt: "Funny cinematic skit, split screen showing expectation vs reality, vibrant colors, expressive facial reactions."
             },
             {
@@ -294,9 +295,7 @@ Call to Action: Taggi ang imong amigo nga pareho ani og kasinatian!",
                 title: "Micro-Tutorial & Discovery",
                 style: "B-Roll + Voiceover",
                 hook: "Tulo ka butang nga wala gitudlo sa eskwelahan bahin sa...",
-                script: "Hook: Tulo kabutang nga wala gibutyag...
-Body: Paspas nga pagpasabot sa 3 ka tip o hinungdanon nga impormasyon gamit ang limpyo nga B-roll.
-Call to Action: I-save kini nga video para dili nimo kalimtan!",
+                script: "Hook: Tulo ka butang nga wala gibutyag...\nBody: Paspas nga pagpasabot sa 3 ka tip gamit ang limpyo nga B-roll.\nCall to Action: I-save kini nga video para dili nimo kalimtan!",
                 prompt: "Clean minimal tech B-roll, smooth camera pan, 4k resolution, professional lighting and composition."
             },
             {
@@ -305,9 +304,7 @@ Call to Action: I-save kini nga video para dili nimo kalimtan!",
                 title: "Founder-Led Problem Solver",
                 style: "Founder-Led / Talking Head",
                 hook: "Ngano gibuhat namo kini nga produkto...",
-                script: "Hook: Gikapoy na ba ka sa karaan nga pamaagi?
-Body: Ang founder nag-istorya sa personal nga hagit ug giunsa paghimo ang solusyon.
-Call to Action: Suportahan ang local brand, order na karon!",
+                script: "Hook: Gikapoy na ba ka sa karaan nga pamaagi?\nBody: Ang founder nag-istorya sa personal nga hagit ug giunsa paghimo ang solusyon.\nCall to Action: Suportahan ang local brand, order na karon!",
                 prompt: "Founder talking directly to camera, professional studio setup, soft background blur, engaging caption overlays."
             }
         ];
@@ -333,6 +330,7 @@ Call to Action: Suportahan ang local brand, order na karon!",
             document.getElementById('btn-generate').innerText = t.btnGenerate;
             document.getElementById('lbl-result').innerText = t.lblResult;
             document.getElementById('btn-copy').innerText = t.btnCopy;
+            document.getElementById('btn-save-out').innerText = t.btnSaveOut;
             document.getElementById('lib-heading').innerText = t.libHeading;
             document.getElementById('cat-all').innerText = t.catAll;
             document.getElementById('cat-ecom').innerText = t.catEcom;
@@ -364,7 +362,6 @@ Call to Action: Suportahan ang local brand, order na karon!",
         function renderTemplates() {
             const grid = document.getElementById('templates-grid');
             grid.innerHTML = '';
-
             const filtered = currentCategory === 'all' ? templates : templates.filter(t => t.category === currentCategory);
 
             filtered.forEach(t => {
@@ -396,16 +393,7 @@ Call to Action: Suportahan ang local brand, order na karon!",
             if (!t) return;
             document.getElementById('ai-product').value = t.title;
             document.getElementById('ai-output-container').classList.remove('hidden');
-            document.getElementById('ai-result-content').innerText = `=== TEMPLATE: ${t.title} (${currentLang.toUpperCase()}) ===
-
-HOOK:
-"${t.hook}"
-
-SCRIPT FLOW:
-${t.script}
-
-AI VIDEO/IMAGE PROMPT:
-${t.prompt}`;
+            document.getElementById('ai-result-content').innerText = `=== TEMPLATE: ${t.title} (${currentLang.toUpperCase()}) ===\n\nHook: "${t.hook}"\n\nScript Flow:\n${t.script}\n\nAI Prompt:\n${t.prompt}`;
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -416,7 +404,7 @@ ${t.prompt}`;
             const apiKey = localStorage.getItem('gemini_api_key');
 
             if (!product) {
-                alert("Palihug og butang og produkto o niche una.");
+                alert("Palihug og butang og produkto o niche una sa text box.");
                 return;
             }
 
@@ -426,26 +414,9 @@ ${t.prompt}`;
             resultContent.innerText = "Nag-generate ang AI... Palihug maghulat kadiyot...";
 
             if (!apiKey) {
-                // Fallback simulation if no API key is provided
                 setTimeout(() => {
-                    resultContent.innerText = `[Simulated AI Output - Lang: ${currentLang.toUpperCase()}]
-
-Product: ${product}
-Style: ${style} (${duration})
-
-1. 3-SECOND HOOK:
-"Gikulbaan ka ba nga basin masayang lang ang imong kwarta ani? Ayaw na pagduhaduha..."
-
-2. VIDEO SCRIPT FLOW:
-- Hook (0-3s): Catchy visual + Problem statement.
-- Body (3-20s): Benefits demonstration using ${style}.
-- CTA (20-30s): Order now / Click link below.
-
-3. AI PROMPT (Seedance / Video Express):
-Vertical 9:16, 4k cinematic, professional studio lighting, showing ${product} in action, engaging movement.
-
-(Tip: I-click ang 'Gemini Key' sa ibabaw para magbutang og tinuod nga API key).`;
-                }, 1000);
+                    resultContent.innerText = `[Sample AI Generated Output - Lang: ${currentLang.toUpperCase()}]\n\nProduct: ${product}\nStyle: ${style} (${duration})\n\n1. 3-SECOND HOOK:\n"Gikulbaan ka ba nga basin masayang lang ang imong kwarta ani? Tan-awa kini..."\n\n2. VIDEO SCRIPT FLOW:\n- Hook (0-3s): Catchy opening statement.\n- Body (3-20s): Detailed benefits using ${style}.\n- Call to Action (20-30s): Click link below to order!\n\n3. AI PROMPT (Seedance / Video Express):\nVertical 9:16, 4k cinematic resolution, professional studio lighting, showing ${product} in action.\n\n*(TALA: Para ma-activate ang tinuod nga Google Gemini AI, i-click ang 'Gemini Key' sa ibabaw ug isulod ang imong API key).*`;
+                }, 800);
                 return;
             }
 
@@ -461,6 +432,8 @@ Vertical 9:16, 4k cinematic, professional studio lighting, showing ${product} in
                 const data = await response.json();
                 if (data.candidates && data.candidates[0].content.parts[0].text) {
                     resultContent.innerText = data.candidates[0].content.parts[0].text;
+                } else if (data.error) {
+                    resultContent.innerText = "API Error: " + data.error.message;
                 } else {
                     resultContent.innerText = "Wala nigawas ang tubag gikan sa Gemini API. Susiha ang imong API key.";
                 }
@@ -473,6 +446,18 @@ Vertical 9:16, 4k cinematic, professional studio lighting, showing ${product} in
             const text = document.getElementById('ai-result-content').innerText;
             navigator.clipboard.writeText(text);
             alert("Nakopya na sa clipboard!");
+        }
+
+        function saveCurrentOutput() {
+            const text = document.getElementById('ai-result-content').innerText;
+            const product = document.getElementById('ai-product').value || "AI Generated Script";
+            if (!text || text.includes("Nag-generate")) return;
+
+            let saved = JSON.parse(localStorage.getItem('saved_scripts') || '[]');
+            saved.push({ title: product.substring(0, 30), content: text, date: new Date().toLocaleDateString() });
+            localStorage.setItem('saved_scripts', JSON.stringify(saved));
+            renderSaved();
+            alert("Na-save na sa imong Swipe File list!");
         }
 
         function openApiKeyModal() {
@@ -488,7 +473,7 @@ Vertical 9:16, 4k cinematic, professional studio lighting, showing ${product} in
             const key = document.getElementById('api-key-input').value.trim();
             localStorage.setItem('gemini_api_key', key);
             closeApiKeyModal();
-            alert("Na-save na ang API key!");
+            alert("Na-save na ang imong Gemini API key!");
         }
 
         function saveTemplate(id) {
@@ -509,7 +494,7 @@ Vertical 9:16, 4k cinematic, professional studio lighting, showing ${product} in
                 return;
             }
             list.innerHTML = '';
-            saved.forEach((item, index) => {
+            saved.forEach((item) => {
                 const div = document.createElement('div');
                 div.className = "bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs space-y-1";
                 div.innerHTML = `
@@ -517,8 +502,7 @@ Vertical 9:16, 4k cinematic, professional studio lighting, showing ${product} in
                         <span class="font-bold text-white">${item.title}</span>
                         <span class="text-[10px] text-slate-500">${item.date}</span>
                     </div>
-                    <p class="text-slate-400 truncate">${item.content.split('
-')[0]}</p>
+                    <p class="text-slate-400 truncate">${item.content.split('\n')[0]}</p>
                 `;
                 list.appendChild(div);
             });
@@ -529,7 +513,6 @@ Vertical 9:16, 4k cinematic, professional studio lighting, showing ${product} in
             renderSaved();
         }
 
-        // Init
         renderTemplates();
         renderSaved();
     </script>
