@@ -1068,7 +1068,7 @@
         function closePortfolioModal() { document.getElementById('portfolio-modal').classList.add('hidden'); }
 
         function filterPortfolio(category) {
-            ['all', 'meta', 'short', 'reels', 'story', 'ugc'].forEach(c => {
+            ['all', 'meta', 'short', 'reels', '2d', '3d', 'cinematic', 'human', 'story', 'ugc'].forEach(c => {
                 const btn = document.getElementById('port-tab-' + c);
                 if (btn) {
                     if (c === category) {
@@ -1088,32 +1088,13 @@
             });
         }
 
-        function loadVideo(id) {
-            const inputVal = document.getElementById('input-' + id).value.trim();
+        function uploadVideo(id, event) {
+            const file = event.target.files[0];
             const container = document.getElementById('player-' + id);
-            if (!inputVal) {
-                alert("Palihog og butang sa video URL una.");
-                return;
-            }
-            
-            // Check if YouTube link
-            let embedUrl = inputVal;
-            if (inputVal.includes('youtube.com') || inputVal.includes('youtu.be')) {
-                let videoId = '';
-                if (inputVal.includes('youtu.be/')) {
-                    videoId = inputVal.split('youtu.be/')[1].split('?')[0];
-                } else if (inputVal.includes('watch?v=')) {
-                    videoId = inputVal.split('watch?v=')[1].split('&')[0];
-                }
-                if (videoId) {
-                    embedUrl = `https://www.youtube.com/embed/${videoId}`;
-                    container.innerHTML = `<iframe class="w-full h-full" src="${embedUrl}" title="YouTube video player" frameborder="0" allowfullscreen></iframe>`;
-                    return;
-                }
-            }
-            
-            // Default HTML5 video or iframe container
-            container.innerHTML = `<video controls class="w-full h-full object-cover"><source src="${inputVal}" type="video/mp4">Your browser does not support the video tag.</video>`;
+            if (!file) return;
+
+            const videoURL = URL.createObjectURL(file);
+            container.innerHTML = `<video controls class="w-full h-full object-cover"><source src="${videoURL}" type="${file.type}">Your browser does not support the video tag.</video>`;
         }
 
         setLanguage('en');
@@ -1132,16 +1113,20 @@
             </div>
             
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                <p class="text-xs text-slate-500">I-paste ang link sa imong video sa ubos unya i-klik ang "Load Video" aron mo-play kini direkta.</p>
+                <p class="text-xs text-slate-500">I-upload ang imong mga hinimo nga video file direkta sa matag kategorya.</p>
                 
                 <!-- Category Tabs for Portfolio -->
-                <div class="flex flex-wrap gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
-                    <button onclick="filterPortfolio('all')" id="port-tab-all" class="px-3 py-1 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow transition">Tanan</button>
-                    <button onclick="filterPortfolio('meta')" id="port-tab-meta" class="px-3 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">Meta Ads</button>
-                    <button onclick="filterPortfolio('short')" id="port-tab-short" class="px-3 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">AI Short Movies</button>
-                    <button onclick="filterPortfolio('reels')" id="port-tab-reels" class="px-3 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">FB Reels</button>
-                    <button onclick="filterPortfolio('story')" id="port-tab-story" class="px-3 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">Storytelling</button>
-                    <button onclick="filterPortfolio('ugc')" id="port-tab-ugc" class="px-3 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">UGC</button>
+                <div class="flex flex-wrap gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200 max-h-36 overflow-y-auto">
+                    <button onclick="filterPortfolio('all')" id="port-tab-all" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow transition">Tanan</button>
+                    <button onclick="filterPortfolio('meta')" id="port-tab-meta" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">Meta Ads</button>
+                    <button onclick="filterPortfolio('short')" id="port-tab-short" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">AI Short</button>
+                    <button onclick="filterPortfolio('reels')" id="port-tab-reels" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">FB Reels</button>
+                    <button onclick="filterPortfolio('2d')" id="port-tab-2d" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">2D Style</button>
+                    <button onclick="filterPortfolio('3d')" id="port-tab-3d" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">3D Style</button>
+                    <button onclick="filterPortfolio('cinematic')" id="port-tab-cinematic" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">Cinematic</button>
+                    <button onclick="filterPortfolio('human')" id="port-tab-human" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">Human Style</button>
+                    <button onclick="filterPortfolio('story')" id="port-tab-story" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">Story</button>
+                    <button onclick="filterPortfolio('ugc')" id="port-tab-ugc" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">UGC</button>
                 </div>
             </div>
 
@@ -1156,12 +1141,14 @@
                     <div id="player-1" class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
                         <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 p-4 text-center">
                             <i class="fa-solid fa-clapperboard text-indigo-400 text-2xl mb-1"></i>
-                            <span class="text-[11px] text-white font-medium">I-load ang video link aron ma-play</span>
+                            <span class="text-[11px] text-white font-medium">Wala pay gi-upload nga video</span>
                         </div>
                     </div>
-                    <div class="flex gap-2">
-                        <input type="text" id="input-1" placeholder="Paste YouTube or Video URL..." class="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-indigo-500">
-                        <button onclick="loadVideo(1)" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition">Load</button>
+                    <div>
+                        <label class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold py-2 px-3 rounded-lg flex items-center justify-center gap-2 cursor-pointer transition border border-slate-200">
+                            <i class="fa-solid fa-cloud-arrow-up text-indigo-600"></i> Pili og Video File
+                            <input type="file" accept="video/*" onchange="uploadVideo(1, event)" class="hidden">
+                        </label>
                     </div>
                 </div>
 
@@ -1174,12 +1161,14 @@
                     <div id="player-2" class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
                         <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 p-4 text-center">
                             <i class="fa-solid fa-clapperboard text-pink-400 text-2xl mb-1"></i>
-                            <span class="text-[11px] text-white font-medium">I-load ang video link aron ma-play</span>
+                            <span class="text-[11px] text-white font-medium">Wala pay gi-upload nga video</span>
                         </div>
                     </div>
-                    <div class="flex gap-2">
-                        <input type="text" id="input-2" placeholder="Paste YouTube or Video URL..." class="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-indigo-500">
-                        <button onclick="loadVideo(2)" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition">Load</button>
+                    <div>
+                        <label class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold py-2 px-3 rounded-lg flex items-center justify-center gap-2 cursor-pointer transition border border-slate-200">
+                            <i class="fa-solid fa-cloud-arrow-up text-pink-600"></i> Pili og Video File
+                            <input type="file" accept="video/*" onchange="uploadVideo(2, event)" class="hidden">
+                        </label>
                     </div>
                 </div>
 
@@ -1192,12 +1181,14 @@
                     <div id="player-3" class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
                         <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 p-4 text-center">
                             <i class="fa-solid fa-clapperboard text-amber-400 text-2xl mb-1"></i>
-                            <span class="text-[11px] text-white font-medium">I-load ang video link aron ma-play</span>
+                            <span class="text-[11px] text-white font-medium">Wala pay gi-upload nga video</span>
                         </div>
                     </div>
-                    <div class="flex gap-2">
-                        <input type="text" id="input-3" placeholder="Paste YouTube or Video URL..." class="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-indigo-500">
-                        <button onclick="loadVideo(3)" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition">Load</button>
+                    <div>
+                        <label class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold py-2 px-3 rounded-lg flex items-center justify-center gap-2 cursor-pointer transition border border-slate-200">
+                            <i class="fa-solid fa-cloud-arrow-up text-amber-600"></i> Pili og Video File
+                            <input type="file" accept="video/*" onchange="uploadVideo(3, event)" class="hidden">
+                        </label>
                     </div>
                 </div>
 
@@ -1210,18 +1201,100 @@
                     <div id="player-4" class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
                         <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 p-4 text-center">
                             <i class="fa-solid fa-clapperboard text-emerald-400 text-2xl mb-1"></i>
-                            <span class="text-[11px] text-white font-medium">I-load ang video link aron ma-play</span>
+                            <span class="text-[11px] text-white font-medium">Wala pay gi-upload nga video</span>
                         </div>
                     </div>
-                    <div class="flex gap-2">
-                        <input type="text" id="input-4" placeholder="Paste YouTube or Video URL..." class="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-indigo-500">
-                        <button onclick="loadVideo(4)" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition">Load</button>
+                    <div>
+                        <label class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold py-2 px-3 rounded-lg flex items-center justify-center gap-2 cursor-pointer transition border border-slate-200">
+                            <i class="fa-solid fa-cloud-arrow-up text-emerald-600"></i> Pili og Video File
+                            <input type="file" accept="video/*" onchange="uploadVideo(4, event)" class="hidden">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Item 5: 2D Style -->
+                <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-3 port-item" data-category="2d">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-xs text-slate-900">2D Animated Explainer Ad</span>
+                        <span class="text-[9px] bg-cyan-50 text-cyan-700 px-2 py-0.5 rounded-full font-semibold">2D Style</span>
+                    </div>
+                    <div id="player-5" class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
+                        <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 p-4 text-center">
+                            <i class="fa-solid fa-clapperboard text-cyan-400 text-2xl mb-1"></i>
+                            <span class="text-[11px] text-white font-medium">Wala pay gi-upload nga video</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold py-2 px-3 rounded-lg flex items-center justify-center gap-2 cursor-pointer transition border border-slate-200">
+                            <i class="fa-solid fa-cloud-arrow-up text-cyan-600"></i> Pili og Video File
+                            <input type="file" accept="video/*" onchange="uploadVideo(5, event)" class="hidden">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Item 6: 3D Style -->
+                <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-3 port-item" data-category="3d">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-xs text-slate-900">3D Product Render & CGI</span>
+                        <span class="text-[9px] bg-purple-50 text-purple-700 px-2 py-0.5 rounded-full font-semibold">3D Style</span>
+                    </div>
+                    <div id="player-6" class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
+                        <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 p-4 text-center">
+                            <i class="fa-solid fa-clapperboard text-purple-400 text-2xl mb-1"></i>
+                            <span class="text-[11px] text-white font-medium">Wala pay gi-upload nga video</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold py-2 px-3 rounded-lg flex items-center justify-center gap-2 cursor-pointer transition border border-slate-200">
+                            <i class="fa-solid fa-cloud-arrow-up text-purple-600"></i> Pili og Video File
+                            <input type="file" accept="video/*" onchange="uploadVideo(6, event)" class="hidden">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Item 7: Cinematic Style -->
+                <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-3 port-item" data-category="cinematic">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-xs text-slate-900">Cinematic Brand Film</span>
+                        <span class="text-[9px] bg-rose-50 text-rose-700 px-2 py-0.5 rounded-full font-semibold">Cinematic</span>
+                    </div>
+                    <div id="player-7" class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
+                        <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 p-4 text-center">
+                            <i class="fa-solid fa-clapperboard text-rose-400 text-2xl mb-1"></i>
+                            <span class="text-[11px] text-white font-medium">Wala pay gi-upload nga video</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold py-2 px-3 rounded-lg flex items-center justify-center gap-2 cursor-pointer transition border border-slate-200">
+                            <i class="fa-solid fa-cloud-arrow-up text-rose-600"></i> Pili og Video File
+                            <input type="file" accept="video/*" onchange="uploadVideo(7, event)" class="hidden">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Item 8: Human Style -->
+                <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-3 port-item" data-category="human">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-xs text-slate-900">Founder Talking Head / UGC</span>
+                        <span class="text-[9px] bg-teal-50 text-teal-700 px-2 py-0.5 rounded-full font-semibold">Human Style</span>
+                    </div>
+                    <div id="player-8" class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
+                        <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 p-4 text-center">
+                            <i class="fa-solid fa-clapperboard text-teal-400 text-2xl mb-1"></i>
+                            <span class="text-[11px] text-white font-medium">Wala pay gi-upload nga video</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold py-2 px-3 rounded-lg flex items-center justify-center gap-2 cursor-pointer transition border border-slate-200">
+                            <i class="fa-solid fa-cloud-arrow-up text-teal-600"></i> Pili og Video File
+                            <input type="file" accept="video/*" onchange="uploadVideo(8, event)" class="hidden">
+                        </label>
                     </div>
                 </div>
             </div>
 
             <div class="flex justify-between items-center pt-3 border-t border-slate-100">
-                <span class="text-[11px] text-slate-400 italic">Paghulagway: I-paste ang YouTube link ug i-klik ang Load aron motugtog dayon ang video.</span>
+                <span class="text-[11px] text-slate-400 italic">Paghulagway: I-klik ang "Pili og Video File" aron direkta nga ma-upload ug mapatugtog ang imong video.</span>
                 <button onclick="closePortfolioModal()" class="px-4 py-2 rounded-xl text-xs font-semibold btn-gemini-sparkle text-white transition">Close Portfolio</button>
             </div>
         </div>
