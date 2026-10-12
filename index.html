@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Meta Ads Master Studio v2</title>
+    <title>AI Meta Ads Master Studio — Cinematic Video Ads</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -16,17 +16,17 @@
                     <i class="fa-solid fa-wand-magic-sparkles"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-lg tracking-wide text-white">AI Meta Ads Master Studio (v2)</h1>
-                    <p class="text-xs text-slate-400" id="sub-title">Premium & Luxury Ads Master Catalog</p>
+                    <h1 class="font-bold text-lg tracking-wide text-white">AI Meta Ads Master Studio</h1>
+                    <p class="text-xs text-slate-400" id="sub-title">Product, Luxury, VFX & Cinematic Video Hub</p>
                 </div>
             </div>
             
             <div class="flex items-center gap-3">
                 <!-- Language Selector -->
                 <div class="flex items-center bg-slate-800 rounded-lg p-1 border border-slate-700">
-                    <button onclick="setLanguage('en')" id="lang-en" class="px-3 py-1.5 rounded-md text-xs font-medium transition text-slate-400 hover:text-white">English</button>
+                    <button onclick="setLanguage('en')" id="lang-en" class="px-3 py-1.5 rounded-md text-xs font-medium transition bg-green-600 text-white shadow">English</button>
                     <button onclick="setLanguage('tl')" id="lang-tl" class="px-3 py-1.5 rounded-md text-xs font-medium transition text-slate-400 hover:text-white">Tagalog</button>
-                    <button onclick="setLanguage('ceb')" id="lang-ceb" class="px-3 py-1.5 rounded-md text-xs font-medium transition bg-green-600 text-white shadow">Bisaya</button>
+                    <button onclick="setLanguage('ceb')" id="lang-ceb" class="px-3 py-1.5 rounded-md text-xs font-medium transition text-slate-400 hover:text-white">Bisaya</button>
                 </div>
                 
                 <!-- API Key Modal Trigger -->
@@ -41,7 +41,7 @@
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
         
-        <!-- Left / Center: Generator & Catalog -->
+        <!-- Left / Center: Generator & Categorized View -->
         <div class="lg:col-span-2 space-y-6">
             
             <!-- AI Generator Box -->
@@ -54,13 +54,27 @@
                 <div class="space-y-4">
                     <div>
                         <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5" id="lbl-product">Product / Service / Niche Description</label>
-                        <input type="text" id="ai-product" placeholder="e.g., Luxury Perfume, Gold Watch, Designer Jewelry..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-green-500 transition">
+                        <input type="text" id="ai-product" placeholder="e.g., Epic Brand Commercial, Drone Cinematic item..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-green-500 transition">
                     </div>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5" id="lbl-category">Select Luxury Style</label>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5" id="lbl-category">Select Master Category & Style</label>
                             <select id="ai-category-select" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-green-500 transition">
+                                <optgroup label="1. Product Showcase Ads">
+                                    <option value="Clean Product Photography">Clean Product Photography</option>
+                                    <option value="Premium Product Showcase">Premium Product Showcase</option>
+                                    <option value="Luxury Product Ad">Luxury Product Ad</option>
+                                    <option value="Minimalist Product Ad">Minimalist Product Ad</option>
+                                    <option value="3D Product Render">3D Product Render</option>
+                                    <option value="Floating Product Effect">Floating Product Effect</option>
+                                    <option value="Exploded View Product Ad">Exploded View Product Ad</option>
+                                    <option value="Macro Detail Ad">Macro Detail Ad</option>
+                                    <option value="Product Hero Shot">Product Hero Shot</option>
+                                    <option value="Product Collection Ad">Product Collection Ad</option>
+                                    <option value="Packaging Showcase">Packaging Showcase</option>
+                                    <option value="Product Benefits Infographic">Product Benefits Infographic</option>
+                                </optgroup>
                                 <optgroup label="2. Premium & Luxury Ads">
                                     <option value="Luxury Editorial">Luxury Editorial</option>
                                     <option value="Cinematic Luxury">Cinematic Luxury</option>
@@ -72,6 +86,34 @@
                                     <option value="Premium Studio Lighting">Premium Studio Lighting</option>
                                     <option value="Luxury Cinematic Reveal">Luxury Cinematic Reveal</option>
                                     <option value="High-End Brand Campaign">High-End Brand Campaign</option>
+                                </optgroup>
+                                <optgroup label="3. Creative & Visual Effects Ads">
+                                    <option value="3D CGI Advertisement">3D CGI Advertisement</option>
+                                    <option value="Surreal Product Ad">Surreal Product Ad</option>
+                                    <option value="Giant Product in City">Giant Product in City</option>
+                                    <option value="Floating Objects">Floating Objects</option>
+                                    <option value="Liquid Splash">Liquid Splash</option>
+                                    <option value="Product Explosion Reveal">Product Explosion Reveal</option>
+                                    <option value="Magic Transformation">Magic Transformation</option>
+                                    <option value="Impossible Physics">Impossible Physics</option>
+                                    <option value="Miniature World">Miniature World</option>
+                                    <option value="Fantasy Product World">Fantasy Product World</option>
+                                    <option value="Portal Transition">Portal Transition</option>
+                                    <option value="Satisfying Visual Effects">Satisfying Visual Effects</option>
+                                </optgroup>
+                                <optgroup label="4. Cinematic Video Ads">
+                                    <option value="Hollywood Cinematic">Hollywood Cinematic</option>
+                                    <option value="Epic Brand Film">Epic Brand Film</option>
+                                    <option value="Slow-Motion Commercial">Slow-Motion Commercial</option>
+                                    <option value="Dramatic Lighting">Dramatic Lighting</option>
+                                    <option value="Drone Cinematic">Drone Cinematic</option>
+                                    <option value="Tracking Shot">Tracking Shot</option>
+                                    <option value="Close-Up Detail Sequence">Close-Up Detail Sequence</option>
+                                    <option value="Emotional Cinematic">Emotional Cinematic</option>
+                                    <option value="Product Reveal">Product Reveal</option>
+                                    <option value="Story-Driven Commercial">Story-Driven Commercial</option>
+                                    <option value="Fast-Paced Montage">Fast-Paced Montage</option>
+                                    <option value="One-Take Commercial">One-Take Commercial</option>
                                 </optgroup>
                             </select>
                         </div>
@@ -109,22 +151,32 @@
                 </div>
             </section>
 
-            <!-- Categorized Catalog Section -->
-            <section class="space-y-4">
+            <!-- Master Catalogs Section -->
+            <section class="space-y-6">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                     <h2 class="text-lg font-bold text-white flex items-center gap-2">
                         <i class="fa-solid fa-layer-group text-green-400"></i>
-                        <span id="lib-heading">Premium & Luxury Ads Catalog</span>
+                        <span id="lib-heading">Organized Master Catalogs</span>
                     </h2>
+                    
+                    <!-- Category Tab Filters -->
+                    <div class="flex flex-wrap gap-1.5 bg-slate-900 p-1 rounded-xl border border-slate-800">
+                        <button onclick="filterCategory('all')" id="tab-all" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-green-600 text-white transition">All Categories</button>
+                        <button onclick="filterCategory('Product')" id="tab-prod" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">1. Product</button>
+                        <button onclick="filterCategory('Luxury')" id="tab-lux" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">2. Luxury</button>
+                        <button onclick="filterCategory('VFX')" id="tab-vfx" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">3. VFX</button>
+                        <button onclick="filterCategory('Cinematic')" id="tab-cine" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">4. Cinematic</button>
+                    </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[600px] overflow-y-auto pr-2" id="catalog-grid"></div>
+                <!-- Display Container for Categories -->
+                <div id="categories-container" class="space-y-6"></div>
             </section>
         </div>
 
         <!-- Right Sidebar: Saved Scripts -->
         <div class="space-y-6">
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl sticky top-24">
                 <div class="flex justify-between items-center mb-3">
                     <h3 class="font-bold text-sm text-white flex items-center gap-2">
                         <i class="fa-solid fa-bookmark text-green-400"></i>
@@ -132,7 +184,7 @@
                     </h3>
                     <button onclick="clearSaved()" class="text-xs text-slate-400 hover:text-red-400 transition" id="btn-clear">Clear All</button>
                 </div>
-                <div id="saved-list" class="space-y-3 max-h-[350px] overflow-y-auto pr-1">
+                <div id="saved-list" class="space-y-3 max-h-[450px] overflow-y-auto pr-1">
                     <p class="text-xs text-slate-500 italic text-center py-4" id="no-saved">No saved scripts yet.</p>
                 </div>
             </div>
@@ -145,7 +197,7 @@
             <h3 class="text-lg font-bold text-white flex items-center gap-2">
                 <i class="fa-solid fa-key text-yellow-400"></i> Set Gemini API Key
             </h3>
-            <p class="text-xs text-slate-400">Pagsulod sa imong Google Gemini API key aron moandar ang AI Generator.</p>
+            <p class="text-xs text-slate-400">Enter your Google Gemini API key to power the AI Generator.</p>
             <input type="password" id="api-key-input" placeholder="AIzaSy..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-green-500">
             <div class="flex justify-end gap-2 pt-2">
                 <button onclick="closeApiKeyModal()" class="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white bg-slate-800 transition">Cancel</button>
@@ -155,25 +207,86 @@
     </div>
 
     <script>
-        let currentLang = 'ceb';
+        let currentLang = 'en';
+        let activeCategory = 'all';
 
         const translations = {
-            en: { subTitle: "Premium & Luxury Ads Master Catalog", btnApiKey: "Gemini Key", genHeading: "AI Ad Concept & Script Generator", lblProduct: "Product / Service / Niche Description", lblCategory: "Select Luxury Style", lblGoal: "Video Duration / Type", btnGenerate: "Generate AI Ad Package", lblResult: "Generated Output", btnCopy: "Copy", btnSaveOut: "Save", libHeading: "Premium & Luxury Ads Catalog", savedHeading: "Saved Scripts", btnClear: "Clear All", noSaved: "No saved scripts yet." },
-            tl: { subTitle: "Premium & Luxury Ads Master Catalog", btnApiKey: "Gemini Key", genHeading: "AI Ad Concept & Script Generator", lblProduct: "Paglalarawan ng Produkto / Serbisyo / Niche", lblCategory: "Piliin ang Estilo ng Luxury", lblGoal: "Tagal ng Video / Uri", btnGenerate: "Gumawa ng AI Ad Package", lblResult: "Resulta ng AI", btnCopy: "Kopyahin", btnSaveOut: "I-save", libHeading: "Premium & Luxury Ads Catalog", savedHeading: "Mga Naka-save na Script", btnClear: "Burahin Lahat", noSaved: "Wala pang naka-save na script." },
-            ceb: { subTitle: "Premium & Luxury Ads Master Catalog", btnApiKey: "Gemini Key", genHeading: "AI Ad Concept & Script Generator", lblProduct: "Paghulagway sa Produkto / Serbisyo / Niche", lblCategory: "Pilia ang Estilo sa Luxury", lblGoal: "Gitas-on sa Video / Uri", btnGenerate: "Paghimo og AI Ad Package", lblResult: "Resulta sa AI", btnCopy: "Kopya", btnSaveOut: "I-save", libHeading: "Premium & Luxury Ads Catalog", savedHeading: "Mga Na-save nga Script", btnClear: "Pag-clear Tanan", noSaved: "Wala pa nay na-save nga script." }
+            en: { subTitle: "Product, Luxury, VFX & Cinematic Video Hub", btnApiKey: "Gemini Key", genHeading: "AI Ad Concept & Script Generator", lblProduct: "Product / Service / Niche Description", lblCategory: "Select Master Category & Style", lblGoal: "Video Duration / Type", btnGenerate: "Generate AI Ad Package", lblResult: "Generated Output", btnCopy: "Copy", btnSaveOut: "Save", libHeading: "Organized Master Catalogs", tabAll: "All Categories", tabProd: "1. Product", tabLux: "2. Luxury", tabVfx: "3. VFX", tabCine: "4. Cinematic", savedHeading: "Saved Scripts", btnClear: "Clear All", noSaved: "No saved scripts yet." },
+            tl: { subTitle: "Product, Luxury, VFX & Cinematic Video Hub", btnApiKey: "Gemini Key", genHeading: "AI Ad Concept & Script Generator", lblProduct: "Paglalarawan ng Produkto / Serbisyo / Niche", lblCategory: "Piliin ang Kategorya at Estilo", lblGoal: "Tagal ng Video / Uri", btnGenerate: "Gumawa ng AI Ad Package", lblResult: "Resulta ng AI", btnCopy: "Kopyahin", btnSaveOut: "I-save", libHeading: "Organized Master Catalogs", tabAll: "Lahat ng Kategorya", tabProd: "1. Product", tabLux: "2. Luxury", tabVfx: "3. VFX", tabCine: "4. Cinematic", savedHeading: "Mga Naka-save na Script", btnClear: "Burahin Lahat", noSaved: "Wala pang naka-save na script." },
+            ceb: { subTitle: "Product, Luxury, VFX & Cinematic Video Hub", btnApiKey: "Gemini Key", genHeading: "AI Ad Concept & Script Generator", lblProduct: "Paghulagway sa Produkto / Serbisyo / Niche", lblCategory: "Pilia ang Kategorya ug Estilo", lblGoal: "Gitas-on sa Video / Uri", btnGenerate: "Paghimo og AI Ad Package", lblResult: "Resulta sa AI", btnCopy: "Kopya", btnSaveOut: "I-save", libHeading: "Organized Master Catalogs", tabAll: "Tanan nga Kategorya", tabProd: "1. Product", tabLux: "2. Luxury", tabVfx: "3. VFX", tabCine: "4. Cinematic", savedHeading: "Mga Na-save nga Script", btnClear: "Pag-clear Tanan", noSaved: "Wala pa nay na-save nga script." }
         };
 
-        const luxuryCatalog = [
-            { id: 1, name: 'Luxury Editorial', desc: 'High-fashion magazine style para sa sopistikado ug elegante nga vibe sa beauty ug fashion products.' },
-            { id: 2, name: 'Cinematic Luxury', desc: 'Sinehan ang kalidad sa visual, perfect para sa mga perfume, watches, ug high-end items.' },
-            { id: 3, name: 'Black-and-Gold Premium', desc: 'Eksklusibo nga kombinasyon sa itom ug bulawan para sa prestige ug elite look.' },
-            { id: 4, name: 'Elegant Minimalism', desc: 'Yano pero nagasulti og dakong klase, limpyo ug hamis nga presentasyon.' },
-            { id: 5, name: 'High-Fashion Campaign', desc: 'Dynamic ug artistic nga presentasyon para sa mga branded accessories ug jewelry.' },
-            { id: 6, name: 'Luxury Lifestyle', desc: 'Gipakita ang produkto sulod sa adunahan ug malampuson nga pangabuhi.' },
-            { id: 7, name: 'Royal Aesthetic', desc: 'Masisinsin ug harianon nga disenyo, kulay, ug atmospera.' },
-            { id: 8, name: 'Premium Studio Lighting', desc: 'Ekspertong pag-igo sa suga aron mapalit ang mata sa customer sa mga detalye.' },
-            { id: 9, name: 'Luxury Cinematic Reveal', desc: 'Hinay-hinay ug dramatic nga pagpasabot o pag-agi sa produkto.' },
-            { id: 10, name: 'High-End Brand Campaign', desc: 'Komprehensibo ug seryoso nga ad campaign para sa mga sikat ug pinasahi nga brands.' }
+        const categoriesData = [
+            {
+                categoryKey: 'Product',
+                categoryTitle: '1. Product Showcase Ads (Clean presentation of product and its core features)',
+                styles: [
+                    { name: 'Clean Product Photography', desc: 'Clean and clear product presentation to capture user attention in the feed.' },
+                    { name: 'Premium Product Showcase', desc: 'High-end and professional presentation making the item look top tier.' },
+                    { name: 'Luxury Product Ad', desc: 'Exclusive and sophisticated aesthetic designed for high-value items.' },
+                    { name: 'Minimalist Product Ad', desc: 'Minimal elements with maximum focus on the product core value.' },
+                    { name: '3D Product Render', desc: 'Modern 3D visual render showing multiple angles and clean lines.' },
+                    { name: 'Floating Product Effect', desc: 'Levitating product effect with professional lighting and soft shadows.' },
+                    { name: 'Exploded View Product Ad', desc: 'Showcasing individual parts, components, or ingredients of the item.' },
+                    { name: 'Macro Detail Ad', desc: 'Extreme close-up shots highlighting fine textures and material quality.' },
+                    { name: 'Product Hero Shot', desc: 'The absolute primary and most striking angle of the product.' },
+                    { name: 'Product Collection Ad', desc: 'Displaying an entire product line or bundled set together.' },
+                    { name: 'Packaging Showcase', desc: 'Highlighting premium unboxing experience and secure packaging.' },
+                    { name: 'Product Benefits Infographic', desc: 'Integrating core benefits and key features directly into the visual.' }
+                ]
+            },
+            {
+                categoryKey: 'Luxury',
+                categoryTitle: '2. Premium & Luxury Ads (For perfume, watches, jewelry, high-end beauty)',
+                styles: [
+                    { name: 'Luxury Editorial', desc: 'High-fashion magazine style for a sophisticated and elegant editorial vibe.' },
+                    { name: 'Cinematic Luxury', desc: 'Hollywood cinematic visual quality perfect for perfumes and luxury timepieces.' },
+                    { name: 'Black-and-Gold Premium', desc: 'Exclusive dark and gold color palette delivering a prestigious elite look.' },
+                    { name: 'Elegant Minimalism', desc: 'Simple yet powerful aesthetic communicating supreme class and quiet luxury.' },
+                    { name: 'High-Fashion Campaign', desc: 'Dynamic and artistic presentation tailored for designer accessories.' },
+                    { name: 'Luxury Lifestyle', desc: 'Placing the product within the aspirational lifestyle of high achievers.' },
+                    { name: 'Royal Aesthetic', desc: 'Regal color tones, grand composition, and majestic atmosphere.' },
+                    { name: 'Premium Studio Lighting', desc: 'Expertly controlled multi-point studio lighting for exquisite reflections.' },
+                    { name: 'Luxury Cinematic Reveal', desc: 'Slow, dramatic camera movement uncovering the product in rich detail.' },
+                    { name: 'High-End Brand Campaign', desc: 'Comprehensive, high-impact storytelling for elite global brands.' }
+                ]
+            },
+            {
+                categoryKey: 'VFX',
+                categoryTitle: '3. Creative & Visual Effects Ads (For eye-catching and scroll-stopping visuals)',
+                styles: [
+                    { name: '3D CGI Advertisement', desc: 'Cutting-edge 3D CGI visuals creating mind-bending visual appeal.' },
+                    { name: 'Surreal Product Ad', desc: 'Dreamlike, surreal landscapes seamlessly integrated with the product.' },
+                    { name: 'Giant Product in City', desc: 'Colossal product towering over urban cityscapes to grab instant attention.' },
+                    { name: 'Floating Objects', desc: 'Levitating elements moving harmoniously around the main product.' },
+                    { name: 'Liquid Splash', desc: 'Dramatic fluid dynamics and splashes highlighting beverages or skincare.' },
+                    { name: 'Product Explosion Reveal', desc: 'Dynamic disintegration and reassembly revealing the item core.' },
+                    { name: 'Magic Transformation', desc: 'Breathtaking morphological change turning everyday items into masterpieces.' },
+                    { name: 'Impossible Physics', desc: 'Defying gravity and traditional laws of physics for viral engagement.' },
+                    { name: 'Miniature World', desc: 'Microscopic or tilt-shift dioramas interacting with the product.' },
+                    { name: 'Fantasy Product World', desc: 'Immersive mythical realms built entirely around the item story.' },
+                    { name: 'Portal Transition', desc: 'Seamless dimensional gateways transporting viewers into new environments.' },
+                    { name: 'Satisfying Visual Effects', desc: 'ASMR-style smooth, hypnotic loops and visual loops for high retention.' }
+                ]
+            },
+            {
+                categoryKey: 'Cinematic',
+                categoryTitle: '4. Cinematic Video Ads (For Hollywood-grade commercial storytelling)',
+                styles: [
+                    { name: 'Hollywood Cinematic', desc: 'Cinematic color grading and dramatic storytelling matching blockbuster standards.' },
+                    { name: 'Epic Brand Film', desc: 'Grand scale commercial video building deep emotional brand resonance.' },
+                    { name: 'Slow-Motion Commercial', desc: 'High-framerate ultra-smooth slow motion capturing powerful motion sequences.' },
+                    { name: 'Dramatic Lighting', desc: 'Moody chiaroscuro lighting sculpting high-contrast visual drama.' },
+                    { name: 'Drone Cinematic', desc: 'Sweeping aerial tracking establishing grand environmental scales.' },
+                    { name: 'Tracking Shot', desc: 'Fluid camera movement following subjects through immersive settings.' },
+                    { name: 'Close-Up Detail Sequence', desc: 'Intimate focal sequences highlighting tactile textures and emotional close-ups.' },
+                    { name: 'Emotional Cinematic', desc: 'Heartfelt storytelling backed by cinematic musical scoring.' },
+                    { name: 'Product Reveal', desc: 'Masterfully timed visual climax unveiling the product in full glory.' },
+                    { name: 'Story-Driven Commercial', desc: 'Narrative-first cinematic advertising focusing on character journeys.' },
+                    { name: 'Fast-Paced Montage', desc: 'Rhythmic, high-energy editing cutting seamlessly to beat drops.' },
+                    { name: 'OneTake Commercial', desc: 'Continuous unbroken shot creating real-time engagement and tension.' }
+                ]
+            }
         ];
 
         function setLanguage(lang) {
@@ -199,33 +312,73 @@
             document.getElementById('btn-copy').innerText = t.btnCopy;
             document.getElementById('btn-save-out').innerText = t.btnSaveOut;
             document.getElementById('lib-heading').innerText = t.libHeading;
+            document.getElementById('tab-all').innerText = t.tabAll;
+            document.getElementById('tab-prod').innerText = t.tabProd;
+            document.getElementById('tab-lux').innerText = t.tabLux;
+            document.getElementById('tab-vfx').innerText = t.tabVfx;
+            document.getElementById('tab-cine').innerText = t.tabCine;
             document.getElementById('saved-heading').innerText = t.savedHeading;
             document.getElementById('btn-clear').innerText = t.btnClear;
             document.getElementById('no-saved').innerText = t.noSaved;
 
-            renderCatalog();
+            renderCategories();
             renderSaved();
         }
 
-        function renderCatalog() {
-            const grid = document.getElementById('catalog-grid');
-            grid.innerHTML = '';
-            luxuryCatalog.forEach(item => {
-                const card = document.createElement('div');
-                card.className = "bg-slate-900 border border-slate-800 rounded-2xl p-4 hover:border-slate-700 transition flex flex-col justify-between";
-                card.innerHTML = `
-                    <div>
-                        <div class="flex justify-between items-start gap-2 mb-2">
-                            <h3 class="font-bold text-white text-xs">${item.name}</h3>
-                            <span class="text-[9px] bg-slate-800 text-green-400 px-2 py-0.5 rounded-full font-medium">Luxury</span>
+        function filterCategory(cat) {
+            activeCategory = cat;
+            ['all', 'Product', 'Luxury', 'VFX', 'Cinematic'].forEach(c => {
+                const btnId = c === 'all' ? 'tab-all' : (c === 'Product' ? 'tab-prod' : (c === 'Luxury' ? 'tab-lux' : (c === 'VFX' ? 'tab-vfx' : 'tab-cine')));
+                const btn = document.getElementById(btnId);
+                if (btn) {
+                    if (c === cat) {
+                        btn.className = "px-3 py-1.5 rounded-lg text-xs font-medium bg-green-600 text-white transition";
+                    } else {
+                        btn.className = "px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition";
+                    }
+                }
+            });
+            renderCategories();
+        }
+
+        function renderCategories() {
+            const container = document.getElementById('categories-container');
+            container.innerHTML = '';
+
+            const filteredCategories = activeCategory === 'all' 
+                ? categoriesData 
+                : categoriesData.filter(cat => cat.categoryKey === activeCategory);
+
+            filteredCategories.forEach(cat => {
+                const section = document.createElement('div');
+                section.className = "space-y-3 bg-slate-900/50 border border-slate-800/80 rounded-2xl p-5";
+                
+                let stylesHTML = '<div class="grid grid-cols-1 md:grid-cols-2 gap-3">';
+                cat.styles.forEach(item => {
+                    stylesHTML += `
+                        <div class="bg-slate-900 border border-slate-800 rounded-xl p-3.5 hover:border-slate-700 transition flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start gap-2 mb-1.5">
+                                    <h3 class="font-bold text-white text-xs">${item.name}</h3>
+                                    <span class="text-[9px] bg-slate-800 text-green-400 px-2 py-0.5 rounded-full font-medium">${cat.categoryKey}</span>
+                                </div>
+                                <p class="text-[11px] text-slate-400 mb-3">${item.desc}</p>
+                            </div>
+                            <button onclick="useCatalogItem('${item.name}')" class="w-full bg-slate-800 hover:bg-slate-700 text-xs font-medium py-1.5 rounded-xl text-slate-200 transition">
+                                <i class="fa-solid fa-bolt text-yellow-400 mr-1"></i> Use in AI Generator
+                            </button>
                         </div>
-                        <p class="text-[11px] text-slate-400 mb-3">${item.desc}</p>
-                    </div>
-                    <button onclick="useCatalogItem('${item.name}')" class="w-full bg-slate-800 hover:bg-slate-700 text-xs font-medium py-1.5 rounded-xl text-slate-200 transition">
-                        <i class="fa-solid fa-bolt text-yellow-400 mr-1"></i> Use in AI Generator
-                    </button>
+                    `;
+                });
+                stylesHTML += '</div>';
+
+                section.innerHTML = `
+                    <h3 class="text-sm font-bold text-green-400 border-b border-slate-800 pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-folder-open"></i> ${cat.categoryTitle}
+                    </h3>
+                    ${stylesHTML}
                 `;
-                grid.appendChild(card);
+                container.appendChild(section);
             });
         }
 
@@ -241,39 +394,39 @@
             const apiKey = localStorage.getItem('gemini_api_key');
 
             if (!product) {
-                alert("Palihug og butang og produkto o niche una sa text box.");
+                alert("Please enter a product, service, or niche description first.");
                 return;
             }
 
             const outputContainer = document.getElementById('ai-output-container');
             const resultContent = document.getElementById('ai-result-content');
             outputContainer.classList.remove('hidden');
-            resultContent.innerText = "Nag-generate ang AI luxury package... Palihug maghulat kadiyot...";
+            resultContent.innerText = "Generating AI ad package... Please wait...";
 
             if (!apiKey || apiKey.length < 10) {
                 setTimeout(() => {
-                    resultContent.innerText = `[AI Luxury Studio v2 - ${currentLang.toUpperCase()}]
+                    resultContent.innerText = `[AI Cinematic Video Studio - English Simulation]
 
 PRODUCT/NICHE: ${product}
 STYLE: ${category} (${duration})
 
-1. 3-SECOND LUXURY HOOKS:
-- "Ang pahumot nga nagahatag og tinuod nga kaharuhay sa matag spray..."
-- "Dili lang kini ordinaryong relo; kini usa ka pahayag sa imong kalampusan."
+1. 3-SECOND HIGH-CONVERTING HOOKS:
+- "Witness the breathtaking scale of ${product} like never before..."
+- "A masterpiece in commercial storytelling: ${product}."
 
 2. COMPLETE AD SCRIPT FLOW:
-- Hook (0-3s): Cinematic and high-end visual introduction.
-- Body (3-20s): Premium feature highlights utilizing ${category}.
-- Call to Action (20-30s): Claim your exclusive piece today!
+- Hook (0-3s): Cinematic blockbuster intro with majestic audio grading.
+- Body (3-20s): Immersive narrative and detail sequencing using ${category}.
+- Call to Action (20-30s): Order now and elevate your experience today!
 
 3. AI VIDEO & IMAGE PROMPTS (Seedance / Video Express):
-Vertical 9:16, high-end cinematic editorial style, professional gold-accented studio lighting, showcasing ${product} with ${category}.`;
+Vertical 9:16, 8k Hollywood cinematic lighting, anamorphic lens flare, professional tracking sequence showing ${product} with ${category}.`;
                 }, 600);
                 return;
             }
 
             try {
-                const promptText = `Act as an expert Meta Ads copywriter and AI video prompt engineer. Create a high-converting luxury ad package in language '${currentLang}' for: "${product}" using style "${category}" (${duration}). Provide 3-second hooks, a complete voiceover script, and AI visual prompts.`;
+                const promptText = `Act as an expert Meta Ads copywriter and AI video prompt engineer. Create a high-converting ad package in English for: "${product}" using style "${category}" (${duration}). Provide 3-second hooks, a complete voiceover script, and AI visual prompts.`;
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -283,27 +436,27 @@ Vertical 9:16, high-end cinematic editorial style, professional gold-accented st
                 if (data.candidates && data.candidates[0].content.parts[0].text) {
                     resultContent.innerText = data.candidates[0].content.parts[0].text;
                 } else {
-                    resultContent.innerText = "Wala nigawas ang tubag gikan sa Gemini API.";
+                    resultContent.innerText = "No response received from the Gemini API.";
                 }
             } catch (err) {
-                resultContent.innerText = "Error sa pag-connect sa API: " + err.message;
+                resultContent.innerText = "API connection error: " + err.message;
             }
         }
 
         function copyOutput() {
             navigator.clipboard.writeText(document.getElementById('ai-result-content').innerText);
-            alert("Nakopya na sa clipboard!");
+            alert("Copied to clipboard successfully!");
         }
 
         function saveCurrentOutput() {
             const text = document.getElementById('ai-result-content').innerText;
-            const product = document.getElementById('ai-product').value || "AI Luxury Ad Script";
-            if (!text || text.includes("Nag-generate")) return;
+            const product = document.getElementById('ai-product').value || "AI Ad Script";
+            if (!text || text.includes("Generating")) return;
             let saved = JSON.parse(localStorage.getItem('saved_scripts') || '[]');
             saved.push({ title: product.substring(0, 30), content: text, date: new Date().toLocaleDateString() });
             localStorage.setItem('saved_scripts', JSON.stringify(saved));
             renderSaved();
-            alert("Na-save na sa imong Swipe File list!");
+            alert("Saved to your Swipe File list!");
         }
 
         function openApiKeyModal() { document.getElementById('api-modal').classList.remove('hidden'); }
@@ -311,22 +464,28 @@ Vertical 9:16, high-end cinematic editorial style, professional gold-accented st
         function saveApiKey() {
             localStorage.setItem('gemini_api_key', document.getElementById('api-key-input').value.trim());
             closeApiKeyModal();
-            alert("Na-save na ang imong API key!");
+            alert("API key saved successfully!");
         }
 
         function renderSaved() {
             const list = document.getElementById('saved-list');
             let saved = JSON.parse(localStorage.getItem('saved_scripts') || '[]');
             if (saved.length === 0) {
-                list.innerHTML = `<p class="text-xs text-slate-500 italic text-center py-4">Wala pa nay na-save nga script.</p>`;
+                list.innerHTML = `<p class="text-xs text-slate-500 italic text-center py-4">No saved scripts yet.</p>`;
                 return;
             }
             list.innerHTML = '';
             saved.forEach((item) => {
                 const div = document.createElement('div');
                 div.className = "bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs space-y-1";
-                div.innerHTML = `<div class="flex justify-between items-center"><span class="font-bold text-white">${item.title}</span><span class="text-[10px] text-slate-500">${item.date}</span></div><p class="text-slate-400 truncate">${item.content.split('
-')[0]}</p>`;
+                div.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-white">${item.title}</span>
+                        <span class="text-[10px] text-slate-500">${item.date}</span>
+                    </div>
+                    <p class="text-slate-400 truncate">${item.content.split('
+')[0]}</p>
+                `;
                 list.appendChild(div);
             });
         }
@@ -336,7 +495,7 @@ Vertical 9:16, high-end cinematic editorial style, professional gold-accented st
             renderSaved();
         }
 
-        setLanguage('ceb');
+        setLanguage('en');
     </script>
 </body>
 </html>
