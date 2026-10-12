@@ -1064,240 +1064,194 @@
             renderSaved();
         }
 
-        function openPortfolioModal() { document.getElementById('portfolio-modal').classList.remove('hidden'); }
+        
+        
+        
+        function openPortfolioModal() { 
+            document.getElementById('portfolio-modal').classList.remove('hidden'); 
+            renderPortfolioGrid();
+        }
         function closePortfolioModal() { document.getElementById('portfolio-modal').classList.add('hidden'); }
 
+        let currentPortCategory = 'all';
+
         function filterPortfolio(category) {
-            ['all', 'meta', 'short', 'reels', '2d', '3d', 'cinematic', 'human', 'story', 'ugc'].forEach(c => {
+            currentPortCategory = category;
+            ['all', 'cinematic', 'meta', 'short', 'reels', '2d', '3d', 'human', 'story', 'ugc'].forEach(c => {
                 const btn = document.getElementById('port-tab-' + c);
                 if (btn) {
                     if (c === category) {
-                        btn.className = "px-3 py-1 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow transition";
+                        btn.className = "px-2.5 py-1 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow transition";
                     } else {
-                        btn.className = "px-3 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition";
+                        btn.className = "px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition";
                     }
                 }
             });
-            const items = document.querySelectorAll('.port-item');
-            items.forEach(item => {
-                if (category === 'all' || item.getAttribute('data-category') === category) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
+            renderPortfolioGrid();
+        }
+
+        function getInitialDefaultVideos() {
+            return [
+                { id: 'def-1', title: 'Cinematic Epic Peak 01', category: 'cinematic', url: 'https://drive.google.com' },
+                { id: 'def-2', title: 'Cinematic Atmospheric 02', category: 'cinematic', url: 'https://drive.google.com' },
+                { id: 'def-3', title: 'Cinematic Epic Drama 03', category: 'cinematic', url: 'https://drive.google.com' },
+                { id: 'def-4', title: 'Ravule Doctor VSL Ad', category: 'meta', url: 'https://drive.google.com' },
+                { id: 'def-5', title: 'AI Adventure Jungle Film', category: 'short', url: 'https://drive.google.com' }
+            ];
+        }
+
+        function addNewPortfolioVideo() {
+            const title = document.getElementById('new-port-title').value.trim();
+            const category = document.getElementById('new-port-category').value;
+            const url = document.getElementById('new-port-url').value.trim();
+
+            if (!title || !url) {
+                alert("Palihog og butang og video title ug Google Drive URL.");
+                return;
+            }
+
+            let videos = JSON.parse(localStorage.getItem('google_drive_portfolio_videos') || JSON.stringify(getInitialDefaultVideos()));
+            videos.unshift({ id: 'vid-' + Date.now(), title, category, url });
+            localStorage.setItem('google_drive_portfolio_videos', JSON.stringify(videos));
+
+            document.getElementById('new-port-title').value = '';
+            document.getElementById('new-port-url').value = '';
+            renderPortfolioGrid();
+            alert("Nindot! Na-save na ang video sa imong Google Drive Portfolio.");
+        }
+
+        function deletePortfolioVideo(id) {
+            let videos = JSON.parse(localStorage.getItem('google_drive_portfolio_videos') || JSON.stringify(getInitialDefaultVideos()));
+            videos = videos.filter(v => v.id !== id);
+            localStorage.setItem('google_drive_portfolio_videos', JSON.stringify(videos));
+            renderPortfolioGrid();
+        }
+
+        function renderPortfolioGrid() {
+            const grid = document.getElementById('portfolio-dynamic-grid');
+            const searchQuery = document.getElementById('portfolio-search').value.toLowerCase();
+            let videos = JSON.parse(localStorage.getItem('google_drive_portfolio_videos') || JSON.stringify(getInitialDefaultVideos()));
+
+            let filtered = videos.filter(v => {
+                const matchesCat = currentPortCategory === 'all' || v.category === currentPortCategory;
+                const matchesSearch = v.title.toLowerCase().includes(searchQuery);
+                return matchesCat && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-8 text-xs text-slate-400 italic">Wala pang video niini nga kategorya o search result.</div>`;
+                return;
+            }
+
+            grid.innerHTML = '';
+            filtered.forEach(v => {
+                const card = document.createElement('div');
+                card.className = "bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-3 port-item";
+                card.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-xs text-slate-900 truncate max-w-[180px]">${v.title}</span>
+                        <span class="text-[9px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full font-semibold uppercase">${v.category}</span>
+                    </div>
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex flex-col items-center justify-center p-3 text-center space-y-2">
+                        <i class="fa-brands fa-google-drive text-green-500 text-3xl"></i>
+                        <span class="text-[11px] text-white font-medium truncate max-w-[220px]">${v.title}</span>
+                        <a href="${v.url}" target="_blank" class="bg-green-600 hover:bg-green-700 text-white text-[10px] font-semibold py-1 px-3 rounded-lg transition">
+                            <i class="fa-solid fa-play mr-1"></i> Tan-awa sa Google Drive
+                        </a>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="copyDriveLink('${v.url}')" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-semibold py-1.5 rounded-lg transition flex items-center justify-center gap-1 border border-slate-200">
+                            <i class="fa-solid fa-copy"></i> Copy Link para sa Kliyente
+                        </button>
+                        <button onclick="deletePortfolioVideo('${v.id}')" title="Delete" class="bg-red-50 hover:bg-red-100 text-red-600 px-2.5 py-1.5 rounded-lg text-xs transition border border-red-200">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
             });
         }
 
-        function uploadVideo(id, event) {
-            const file = event.target.files[0];
-            const container = document.getElementById('player-' + id);
-            if (!file) return;
-
-            const videoURL = URL.createObjectURL(file);
-            container.innerHTML = `<video controls class="w-full h-full object-cover"><source src="${videoURL}" type="${file.type}">Your browser does not support the video tag.</video>`;
+        function copyDriveLink(url) {
+            navigator.clipboard.writeText(url);
+            alert("Na-copy na ang Google Drive video link! Pwede na nimo i-send sa imong kliyente.");
         }
-
-        setLanguage('en');
+setLanguage('en');
     </script>
 
-    <!-- Portfolio Modal -->
+                <!-- Portfolio Modal -->
     <div id="portfolio-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-        <div class="gemini-card rounded-2xl max-w-4xl w-full p-6 shadow-2xl space-y-4 border border-slate-200 max-h-[85vh] overflow-y-auto">
+        <div class="gemini-card rounded-2xl max-w-5xl w-full p-6 shadow-2xl space-y-5 border border-slate-200 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
-                    <i class="fa-solid fa-clapperboard text-indigo-600"></i> Ronnie Ads Video Portfolio & Masterworks
-                </h3>
+                <div>
+                    <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-clapperboard text-indigo-600"></i> Ronnie Ads Google Drive 5TB Video Portfolio Hub
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mt-0.5">Ikonekta ang imong mga video gikan sa imong 5TB Google Drive sa tanan nga kategorya. Hapsay, paspas, ug dali i-send sa mga kliyente!</p>
+                </div>
                 <button onclick="closePortfolioModal()" class="text-xs text-slate-500 hover:text-slate-800 bg-slate-100 hover:bg-slate-200 p-2 rounded-lg transition">
                     <i class="fa-solid fa-xmark text-sm"></i>
                 </button>
             </div>
             
+            <!-- Add New Google Drive Video Form Box -->
+            <div class="bg-indigo-50/70 border border-indigo-100 rounded-2xl p-4 space-y-3">
+                <h4 class="text-xs font-bold text-indigo-900 flex items-center gap-1.5 uppercase tracking-wider">
+                    <i class="fa-brands fa-google-drive"></i> Magbutang og Google Drive Video Link sa Portfolio
+                </h4>
+                <div class="grid grid-cols-1 sm:grid-cols-4 gap-2.5">
+                    <input type="text" id="new-port-title" placeholder="Video Title (e.g. Cinematic Epic Peak 04)..." class="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-indigo-500 shadow-sm">
+                    <select id="new-port-category" class="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-indigo-500 shadow-sm">
+                        <option value="cinematic">Cinematic (20+ Videos)</option>
+                        <option value="meta">Meta Ads VSL</option>
+                        <option value="short">AI Short Movies</option>
+                        <option value="reels">FB Reels & Skits</option>
+                        <option value="2d">2D Style</option>
+                        <option value="3d">3D Style</option>
+                        <option value="human">Human Style</option>
+                        <option value="story">Storytelling</option>
+                        <option value="ugc">UGC & Reviews</option>
+                    </select>
+                    <input type="text" id="new-port-url" placeholder="Paste Google Drive Share Link here..." class="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-indigo-500 shadow-sm">
+                    <button onclick="addNewPortfolioVideo()" class="btn-gemini-sparkle text-white text-xs font-bold py-2 px-4 rounded-xl transition flex items-center justify-center gap-1.5 shadow-sm">
+                        <i class="fa-solid fa-plus"></i> I-save sa Portfolio
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search and Filter Controls -->
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                <p class="text-xs text-slate-500">I-upload ang imong mga hinimo nga video file direkta sa matag kategorya.</p>
+                <div class="w-full sm:w-72 relative">
+                    <i class="fa-solid fa-search absolute left-3 top-2.5 text-xs text-slate-400"></i>
+                    <input type="text" id="portfolio-search" oninput="renderPortfolioGrid()" placeholder="Pangita og video title..." class="w-full bg-white border border-slate-200 rounded-xl pl-8 pr-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-indigo-500 shadow-sm">
+                </div>
                 
                 <!-- Category Tabs for Portfolio -->
                 <div class="flex flex-wrap gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200 max-h-36 overflow-y-auto">
                     <button onclick="filterPortfolio('all')" id="port-tab-all" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow transition">Tanan</button>
+                    <button onclick="filterPortfolio('cinematic')" id="port-tab-cinematic" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">Cinematic</button>
                     <button onclick="filterPortfolio('meta')" id="port-tab-meta" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">Meta Ads</button>
                     <button onclick="filterPortfolio('short')" id="port-tab-short" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">AI Short</button>
                     <button onclick="filterPortfolio('reels')" id="port-tab-reels" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">FB Reels</button>
                     <button onclick="filterPortfolio('2d')" id="port-tab-2d" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">2D Style</button>
                     <button onclick="filterPortfolio('3d')" id="port-tab-3d" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">3D Style</button>
-                    <button onclick="filterPortfolio('cinematic')" id="port-tab-cinematic" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">Cinematic</button>
                     <button onclick="filterPortfolio('human')" id="port-tab-human" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">Human Style</button>
                     <button onclick="filterPortfolio('story')" id="port-tab-story" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">Story</button>
                     <button onclick="filterPortfolio('ugc')" id="port-tab-ugc" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">UGC</button>
                 </div>
             </div>
 
-            <!-- Portfolio Grid Container -->
-            <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                <!-- Item 1: Meta Ads -->
-                <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-3 port-item" data-category="meta">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-xs text-slate-900">Ravule Doctor VSL Ad</span>
-                        <span class="text-[9px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full font-semibold">Meta Ads</span>
-                    </div>
-                    <div id="player-1" class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
-                        <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 p-4 text-center">
-                            <i class="fa-solid fa-clapperboard text-indigo-400 text-2xl mb-1"></i>
-                            <span class="text-[11px] text-white font-medium">Wala pay gi-upload nga video</span>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold py-2 px-3 rounded-lg flex items-center justify-center gap-2 cursor-pointer transition border border-slate-200">
-                            <i class="fa-solid fa-cloud-arrow-up text-indigo-600"></i> Pili og Video File
-                            <input type="file" accept="video/*" onchange="uploadVideo(1, event)" class="hidden">
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Item 2: AI Short Movies -->
-                <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-3 port-item" data-category="short">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-xs text-slate-900">AI Adventure Jungle Film</span>
-                        <span class="text-[9px] bg-pink-50 text-pink-700 px-2 py-0.5 rounded-full font-semibold">AI Short Movies</span>
-                    </div>
-                    <div id="player-2" class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
-                        <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 p-4 text-center">
-                            <i class="fa-solid fa-clapperboard text-pink-400 text-2xl mb-1"></i>
-                            <span class="text-[11px] text-white font-medium">Wala pay gi-upload nga video</span>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold py-2 px-3 rounded-lg flex items-center justify-center gap-2 cursor-pointer transition border border-slate-200">
-                            <i class="fa-solid fa-cloud-arrow-up text-pink-600"></i> Pili og Video File
-                            <input type="file" accept="video/*" onchange="uploadVideo(2, event)" class="hidden">
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Item 3: FB Reels -->
-                <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-3 port-item" data-category="reels">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-xs text-slate-900">Funny Cat Stealing Items Skit</span>
-                        <span class="text-[9px] bg-amber-50 text-amber-700 px-2 py-0.5 rounded-full font-semibold">FB Reels</span>
-                    </div>
-                    <div id="player-3" class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
-                        <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 p-4 text-center">
-                            <i class="fa-solid fa-clapperboard text-amber-400 text-2xl mb-1"></i>
-                            <span class="text-[11px] text-white font-medium">Wala pay gi-upload nga video</span>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold py-2 px-3 rounded-lg flex items-center justify-center gap-2 cursor-pointer transition border border-slate-200">
-                            <i class="fa-solid fa-cloud-arrow-up text-amber-600"></i> Pili og Video File
-                            <input type="file" accept="video/*" onchange="uploadVideo(3, event)" class="hidden">
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Item 4: Storytelling -->
-                <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-3 port-item" data-category="story">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-xs text-slate-900">Map That Predicted Continents</span>
-                        <span class="text-[9px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full font-semibold">Storytelling</span>
-                    </div>
-                    <div id="player-4" class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
-                        <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 p-4 text-center">
-                            <i class="fa-solid fa-clapperboard text-emerald-400 text-2xl mb-1"></i>
-                            <span class="text-[11px] text-white font-medium">Wala pay gi-upload nga video</span>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold py-2 px-3 rounded-lg flex items-center justify-center gap-2 cursor-pointer transition border border-slate-200">
-                            <i class="fa-solid fa-cloud-arrow-up text-emerald-600"></i> Pili og Video File
-                            <input type="file" accept="video/*" onchange="uploadVideo(4, event)" class="hidden">
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Item 5: 2D Style -->
-                <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-3 port-item" data-category="2d">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-xs text-slate-900">2D Animated Explainer Ad</span>
-                        <span class="text-[9px] bg-cyan-50 text-cyan-700 px-2 py-0.5 rounded-full font-semibold">2D Style</span>
-                    </div>
-                    <div id="player-5" class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
-                        <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 p-4 text-center">
-                            <i class="fa-solid fa-clapperboard text-cyan-400 text-2xl mb-1"></i>
-                            <span class="text-[11px] text-white font-medium">Wala pay gi-upload nga video</span>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold py-2 px-3 rounded-lg flex items-center justify-center gap-2 cursor-pointer transition border border-slate-200">
-                            <i class="fa-solid fa-cloud-arrow-up text-cyan-600"></i> Pili og Video File
-                            <input type="file" accept="video/*" onchange="uploadVideo(5, event)" class="hidden">
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Item 6: 3D Style -->
-                <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-3 port-item" data-category="3d">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-xs text-slate-900">3D Product Render & CGI</span>
-                        <span class="text-[9px] bg-purple-50 text-purple-700 px-2 py-0.5 rounded-full font-semibold">3D Style</span>
-                    </div>
-                    <div id="player-6" class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
-                        <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 p-4 text-center">
-                            <i class="fa-solid fa-clapperboard text-purple-400 text-2xl mb-1"></i>
-                            <span class="text-[11px] text-white font-medium">Wala pay gi-upload nga video</span>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold py-2 px-3 rounded-lg flex items-center justify-center gap-2 cursor-pointer transition border border-slate-200">
-                            <i class="fa-solid fa-cloud-arrow-up text-purple-600"></i> Pili og Video File
-                            <input type="file" accept="video/*" onchange="uploadVideo(6, event)" class="hidden">
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Item 7: Cinematic Style -->
-                <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-3 port-item" data-category="cinematic">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-xs text-slate-900">Cinematic Brand Film</span>
-                        <span class="text-[9px] bg-rose-50 text-rose-700 px-2 py-0.5 rounded-full font-semibold">Cinematic</span>
-                    </div>
-                    <div id="player-7" class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
-                        <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 p-4 text-center">
-                            <i class="fa-solid fa-clapperboard text-rose-400 text-2xl mb-1"></i>
-                            <span class="text-[11px] text-white font-medium">Wala pay gi-upload nga video</span>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold py-2 px-3 rounded-lg flex items-center justify-center gap-2 cursor-pointer transition border border-slate-200">
-                            <i class="fa-solid fa-cloud-arrow-up text-rose-600"></i> Pili og Video File
-                            <input type="file" accept="video/*" onchange="uploadVideo(7, event)" class="hidden">
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Item 8: Human Style -->
-                <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-3 port-item" data-category="human">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-xs text-slate-900">Founder Talking Head / UGC</span>
-                        <span class="text-[9px] bg-teal-50 text-teal-700 px-2 py-0.5 rounded-full font-semibold">Human Style</span>
-                    </div>
-                    <div id="player-8" class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center text-slate-400 text-xs">
-                        <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 p-4 text-center">
-                            <i class="fa-solid fa-clapperboard text-teal-400 text-2xl mb-1"></i>
-                            <span class="text-[11px] text-white font-medium">Wala pay gi-upload nga video</span>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold py-2 px-3 rounded-lg flex items-center justify-center gap-2 cursor-pointer transition border border-slate-200">
-                            <i class="fa-solid fa-cloud-arrow-up text-teal-600"></i> Pili og Video File
-                            <input type="file" accept="video/*" onchange="uploadVideo(8, event)" class="hidden">
-                        </label>
-                    </div>
-                </div>
+            <!-- Dynamic Portfolio Grid Container -->
+            <div id="portfolio-dynamic-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-2 max-h-[45vh] overflow-y-auto pr-1">
+                <!-- Dynamically rendered via JavaScript localStorage -->
             </div>
 
             <div class="flex justify-between items-center pt-3 border-t border-slate-100">
-                <span class="text-[11px] text-slate-400 italic">Paghulagway: I-klik ang "Pili og Video File" aron direkta nga ma-upload ug mapatugtog ang imong video.</span>
+                <span class="text-[11px] text-slate-400 italic">Google Drive 5TB Connected: Pwede ka mag-add og gatosan ka video links nga hapsay ug secure.</span>
                 <button onclick="closePortfolioModal()" class="px-4 py-2 rounded-xl text-xs font-semibold btn-gemini-sparkle text-white transition">Close Portfolio</button>
             </div>
         </div>
     </div>
+
 </body>
 </html>
